@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:background="#15171a"
-    android:padding="5dp">
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/iv_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:src="@drawable/abc_ic_search_api_mtrl_alpha" />
+        android:src="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -28,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/actionbar_navigation_cart" />
+        android:src="@drawable/actionbar_navigation_cart"
+        android:visibility="gone" />
 
 </RelativeLayout>

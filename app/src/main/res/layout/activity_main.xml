@@ -13,7 +13,7 @@
         android:id="@+id/rg_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#000000"
+        android:background="#16171a"
         android:orientation="horizontal"
         android:padding="5dp">
 
