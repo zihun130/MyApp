@@ -62,6 +62,7 @@ public class ShopFragment extends BaseFragment {
         ShopPagerAdapter adapter = new ShopPagerAdapter(manager,fragments);
         vp.setAdapter(adapter);
         tabLayout.setupWithViewPager(vp);
+        vp.setCurrentItem(2);
     }
 
 
