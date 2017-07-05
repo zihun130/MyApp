@@ -1,5 +1,6 @@
 package com.wgheng.myapp.fragment;
 
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ public class DaRenFragment extends BaseFragment {
     @Override
     protected View initView() {
         TextView textView = new TextView(getActivity());
+        textView.setTextSize(30);
+        textView.setGravity(Gravity.CENTER);
         textView.setText("达人");
         return textView;
     }
