@@ -1,4 +1,4 @@
-package com.wgheng.myapp.activity;
+package com.wgheng.myapp.common;
 
 import android.content.Intent;
 import android.widget.ImageView;

@@ -1,4 +1,4 @@
-package com.wgheng.myapp.fragment;
+package com.wgheng.myapp.mgz;
 
 import android.view.Gravity;
 import android.view.View;
@@ -10,14 +10,14 @@ import com.wgheng.myapp.base.BaseFragment;
  * Created by wgheng on 2017/7/5.
  */
 
-public class BrandFragment extends BaseFragment {
+public class MGZFragment extends BaseFragment {
 
     @Override
     protected View initView() {
         TextView textView = new TextView(getActivity());
         textView.setTextSize(30);
         textView.setGravity(Gravity.CENTER);
-        textView.setText("品牌");
+        textView.setText("杂志");
         return textView;
     }
 }

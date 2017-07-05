@@ -1,4 +1,4 @@
-package com.wgheng.myapp.activity;
+package com.wgheng.myapp.common;
 
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -8,11 +8,11 @@ import android.widget.RadioGroup;
 
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseActivity;
-import com.wgheng.myapp.fragment.DaRenFragment;
-import com.wgheng.myapp.fragment.MGZFragment;
-import com.wgheng.myapp.fragment.SelfFragment;
-import com.wgheng.myapp.fragment.ShareFragment;
-import com.wgheng.myapp.fragment.ShopFragment;
+import com.wgheng.myapp.dazen.DaRenFragment;
+import com.wgheng.myapp.mgz.MGZFragment;
+import com.wgheng.myapp.self.SelfFragment;
+import com.wgheng.myapp.share.ShareFragment;
+import com.wgheng.myapp.shop.fragment.ShopFragment;
 
 import java.util.ArrayList;
 import java.util.List;

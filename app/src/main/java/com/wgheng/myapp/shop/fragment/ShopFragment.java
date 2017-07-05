@@ -1,4 +1,4 @@
-package com.wgheng.myapp.fragment;
+package com.wgheng.myapp.shop.fragment;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wgheng.myapp.R;
-import com.wgheng.myapp.adapter.ShopPagerAdapter;
+import com.wgheng.myapp.shop.adapter.ShopPagerAdapter;
 import com.wgheng.myapp.base.BaseFragment;
 
 import java.util.ArrayList;
