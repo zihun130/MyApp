@@ -6,10 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wgheng.myapp.R;
-import com.wgheng.myapp.shop.bean.ClassifyBean;
+import com.wgheng.myapp.shop.bean.BrandBean;
 
 import java.util.List;
 
@@ -22,23 +23,25 @@ import butterknife.ButterKnife;
 
 public class BrandRecyclerAdapter extends RecyclerView.Adapter<BrandRecyclerAdapter.ViewHolder> {
     private final Context context;
-    private final List<ClassifyBean.DataBean.ItemsBean> itemsBeans;
+    private final List<BrandBean.DataBean.ItemsBean> itemsBeans;
 
-    public BrandRecyclerAdapter(Context context, List<ClassifyBean.DataBean.ItemsBean> itemsBeans) {
+
+    public BrandRecyclerAdapter(Context context, List<BrandBean.DataBean.ItemsBean> itemsBeans) {
         this.context = context;
         this.itemsBeans = itemsBeans;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_classify, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_brand, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ClassifyBean.DataBean.ItemsBean itemsBean = itemsBeans.get(position);
-        Glide.with(context).load(itemsBean.getCover_new_img()).into(holder.iv);
+        BrandBean.DataBean.ItemsBean itemsBean = itemsBeans.get(position);
+        holder.tvBrandName.setText(itemsBean.getBrand_name());
+        Glide.with(context).load(itemsBean.getBrand_logo()).into(holder.ivBrandLogo);
     }
 
     @Override
@@ -46,14 +49,16 @@ public class BrandRecyclerAdapter extends RecyclerView.Adapter<BrandRecyclerAdap
         return itemsBeans == null ? 0 : itemsBeans.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv)
-        ImageView iv;
 
-        public ViewHolder(View view) {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_brand_logo)
+        ImageView ivBrandLogo;
+        @BindView(R.id.tv_brand_name)
+        TextView tvBrandName;
+
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
-
 }
