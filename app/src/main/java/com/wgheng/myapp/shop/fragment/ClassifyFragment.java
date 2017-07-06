@@ -11,7 +11,6 @@ import com.wgheng.myapp.base.BaseFragment;
 import com.wgheng.myapp.common.Constant;
 import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
 import com.wgheng.myapp.shop.bean.ClassifyBean;
-import com.wgheng.myapp.utils.ConnectUtils;
 
 import java.util.List;
 
@@ -19,9 +18,6 @@ import butterknife.BindView;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by wgheng on 2017/7/5.
@@ -45,26 +41,15 @@ public class ClassifyFragment extends BaseFragment {
     protected void initData() {
         super.initData();
         refresh.setPtrHandler(new RefreshListener());
-        getData();
     }
 
-    private void getData() {
-        ConnectUtils.getDataFromNet(Constant.CLASSIFY_URL)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(@NonNull String s) throws Exception {
-                        processData(s);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                    }
-                });
+    @Override
+    protected String getUrl() {
+        return Constant.CLASSIFY_URL;
     }
 
-    private void processData(String s) {
+    @Override
+    protected void processData(String s) {
         Log.d("tag", "processData: "+s);
         ClassifyBean classifyBean = JSON.parseObject(s, ClassifyBean.class);
         List<ClassifyBean.DataBean.ItemsBean> itemsBeans = classifyBean.getData().getItems();
