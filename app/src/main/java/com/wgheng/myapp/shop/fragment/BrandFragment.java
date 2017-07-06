@@ -25,12 +25,13 @@ import butterknife.BindView;
 
 public class BrandFragment extends BaseFragment {
 
-    public static boolean isLoadMore = false;
     @BindView(R.id.recycler_view)
     XRecyclerView recyclerView;
     private BrandRecyclerAdapter adapter;
     private List<BrandBean.DataBean.ItemsBean> itemsBeans;
     private BrandBean brandBean;
+    private boolean isLoadMore = false;
+    private int page = 1;
 
     @Override
     protected View initView() {
@@ -41,13 +42,13 @@ public class BrandFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        page = 1;
         super.initData();
     }
 
     @Override
     protected String getUrl() {
-        Constant.PAGE_COUNT = 1;
-        return Constant.BRAND_URL_PART1 + Constant.PAGE_COUNT + Constant.BRAND_URL_PART2;
+        return Constant.BRAND_URL_PART1 + page + Constant.BRAND_URL_PART2;
     }
 
     @Override
@@ -83,16 +84,16 @@ public class BrandFragment extends BaseFragment {
         @Override
         public void onRefresh() {
             isLoadMore = false;
-            Constant.PAGE_COUNT = 1;
-            getData(Constant.BRAND_URL_PART1 + Constant.PAGE_COUNT + Constant.BRAND_URL_PART2);
+            page = 1;
+            getData(Constant.BRAND_URL_PART1 + page + Constant.BRAND_URL_PART2);
         }
 
         @Override
         public void onLoadMore() {
             isLoadMore = true;
             if (brandBean.getData().isHas_more()) {
-                Constant.PAGE_COUNT++;
-                getData(Constant.BRAND_URL_PART1 + Constant.PAGE_COUNT + Constant.BRAND_URL_PART2);
+                page++;
+                getData(Constant.BRAND_URL_PART1 + page + Constant.BRAND_URL_PART2);
             } else {
                 Toast.makeText(getActivity(), "没有更多了", Toast.LENGTH_SHORT).show();
                 recyclerView.loadMoreComplete();
