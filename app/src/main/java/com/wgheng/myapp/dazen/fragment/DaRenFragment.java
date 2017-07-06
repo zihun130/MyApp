@@ -1,13 +1,12 @@
 package com.wgheng.myapp.dazen.fragment;
 
 import android.graphics.Color;
-import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +22,7 @@ import com.wgheng.myapp.dazen.bean.DazenBean;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -41,11 +40,16 @@ public class DaRenFragment extends BaseFragment {
     @BindView(R.id.iv_menu)
     ImageView ivMenu;
     Unbinder unbinder;
+    @BindView(R.id.rg_menu_options)
+    RadioGroup rgMenuOptions;
+    Unbinder unbinder1;
     private DarenRecyclerAdapter adapter;
     private List<DazenBean.DataBean.ItemsBean> itemsBeans;
     private DazenBean dazenBean;
     private boolean isLoadMore = false;
+    private boolean isRGShow = false;
     private int page = 1;
+    private String orderBy = "";
 
     @Override
     protected View initView() {
@@ -57,11 +61,13 @@ public class DaRenFragment extends BaseFragment {
     @Override
     protected void initData() {
         page = 1;
-        super.initData();
+        orderBy = "";
         ivSearch.setVisibility(View.VISIBLE);
         tvTitle.setVisibility(View.VISIBLE);
         ivMenu.setVisibility(View.VISIBLE);
+        rgMenuOptions.setOnCheckedChangeListener(new OnCheckedChangeListener());
         tvTitle.setText("达人");
+        rgMenuOptions.check(R.id.rb_default_recommend);
     }
 
     @Override
@@ -70,7 +76,7 @@ public class DaRenFragment extends BaseFragment {
     }
 
     private String combineUrl() {
-        return Constant.DAREN_URL_PART1 + page + Constant.DAREN_URL_PART2;
+        return Constant.DAREN_URL_PART1 + orderBy + Constant.DAREN_URL_PART2 + page + Constant.DAREN_URL_PART3;
     }
 
     @Override
@@ -102,18 +108,23 @@ public class DaRenFragment extends BaseFragment {
         recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    @OnClick({R.id.iv_search, R.id.iv_menu})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_search:
+                Toast.makeText(getActivity(), "搜索", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.iv_menu:
+                if (!isRGShow) {
+                    rgMenuOptions.setVisibility(View.VISIBLE);
+                    ivMenu.setImageResource(R.drawable.ic_pack_close);
+                } else {
+                    rgMenuOptions.setVisibility(View.GONE);
+                    ivMenu.setImageResource(R.drawable.actionbar_navigation_menu);
+                }
+                isRGShow = !isRGShow;
+                break;
+        }
     }
 
     private class LoadingListener implements XRecyclerView.LoadingListener {
@@ -136,5 +147,34 @@ public class DaRenFragment extends BaseFragment {
             }
         }
 
+    }
+
+    private class OnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
+        @Override
+        public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+            isLoadMore = false;
+            page = 1;
+            switch (checkedId) {
+                case R.id.rb_default_recommend:
+                    orderBy = "";
+                    break;
+                case R.id.rb_most_recommend:
+                    orderBy = "&orderby=goods_sum";
+                    break;
+                case R.id.rb_most_popular:
+                    orderBy = "&orderby=followers";
+                    break;
+                case R.id.rb_latest_recommend:
+                    orderBy = "&orderby=reg_time";
+                    break;
+                case R.id.rb_latest_join:
+                    orderBy = "&orderby=action_time";
+                    break;
+            }
+            getData(combineUrl());
+            rgMenuOptions.setVisibility(View.GONE);
+            ivMenu.setImageResource(R.drawable.actionbar_navigation_menu);
+            isRGShow = false;
+        }
     }
 }

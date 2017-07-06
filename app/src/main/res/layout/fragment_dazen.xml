@@ -1,13 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/title_bar" />
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/title_bar" />
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_bar" />
 
-</LinearLayout>
+    <RadioGroup
+        android:id="@+id/rg_menu_options"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_bar"
+        android:background="#99444444"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RadioButton
+            android:id="@+id/rb_default_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="默认推荐"
+            android:textColor="@drawable/rb_text_color_selector"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#3d4343" />
+
+        <RadioButton
+            android:id="@+id/rb_most_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="最多推荐"
+            android:textColor="@drawable/rb_text_color_selector"
+            android:textSize="15sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#3d4343" />
+
+        <RadioButton
+            android:id="@+id/rb_most_popular"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="最受欢迎"
+            android:textColor="@drawable/rb_text_color_selector"
+            android:textSize="15sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#3d4343" />
+
+        <RadioButton
+            android:id="@+id/rb_latest_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="最新推荐"
+            android:textColor="@drawable/rb_text_color_selector"
+            android:textSize="15sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#3d4343" />
+
+        <RadioButton
+            android:id="@+id/rb_latest_join"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="最新加入"
+            android:textColor="@drawable/rb_text_color_selector"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:layout_weight="8"
+            android:enabled="false"
+            android:button="@null"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+    </RadioGroup>
+
+
+</RelativeLayout>
