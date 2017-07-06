@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.wgheng.myapp.R;
@@ -76,6 +77,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 break;
             case 3:
             case 4:
+                ViewHolderStagger holderStagger = (ViewHolderStagger) holder;
+                holderStagger.setData(listBean);
                 break;
         }
     }
@@ -129,13 +132,49 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    static class ViewHolderStagger extends RecyclerView.ViewHolder {
-        @BindView(R.id.recycler_stagger)
-        RecyclerView recyclerStagger;
+
+    class ViewHolderStagger extends RecyclerView.ViewHolder {
+        @BindView(R.id.ll_left)
+        LinearLayout llLeft;
+        @BindView(R.id.ll_right)
+        LinearLayout llRight;
 
         ViewHolderStagger(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+
+        public void setData(HomeBean.DataBean.ItemsBean.ListBean listBean) {
+
+            llLeft.removeAllViews();
+            llRight.removeAllViews();
+
+            ImageView iv1 = getImageView();
+            ImageView iv2 = getImageView();
+            ImageView iv3 = getImageView();
+
+            Glide.with(context).load(listBean.getOne().getPic_url()).into(iv1);
+            Glide.with(context).load(listBean.getTwo().getPic_url()).into(iv2);
+            Glide.with(context).load(listBean.getThree().getPic_url()).into(iv3);
+
+            llLeft.addView(iv1);
+            llLeft.addView(iv2);
+            llRight.addView(iv3);
+
+            if (listBean.getFour() != null) {
+                ImageView iv4 = getImageView();
+                Glide.with(context).load(listBean.getFour().getPic_url()).into(iv4);
+                llRight.addView(iv4);
+            }
+
+        }
+
+        private ImageView getImageView() {
+            ImageView imageView = new ImageView(context);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            imageView.setLayoutParams(params);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            return imageView;
         }
     }
 }
