@@ -22,6 +22,15 @@
         android:textColor="#ffffff"
         android:textSize="15sp"
         tools:text="标题" />
+    <ImageView
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/tv_title"
+        android:layout_centerVertical="true"
+        android:id="@+id/iv_arrow"
+        android:visibility="gone"
+        android:src="@drawable/mgz_arrow"
+        android:layout_width="10dp"
+        android:layout_height="10dp" />
 
     <ImageView
         android:id="@+id/iv_cart"
@@ -30,6 +39,15 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:src="@drawable/actionbar_navigation_cart"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/actionbar_navigation_menu"
         android:visibility="gone" />
 
 </RelativeLayout>

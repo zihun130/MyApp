@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:background="#1e2125"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_orig"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:textColor="#ffffff"
+        tools:text="用户名" />
+
+    <TextView
+        android:id="@+id/tv_duty"
+        android:textSize="8sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#99ffffff"
+        tools:text="职业" />
+
+</LinearLayout>

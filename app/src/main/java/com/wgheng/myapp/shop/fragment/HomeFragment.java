@@ -28,7 +28,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected View initView() {
-        return View.inflate(getActivity(), R.layout.fragment_shop_child, null);
+        return View.inflate(getActivity(), R.layout.fragment_recycler_list, null);
     }
 
     @Override

@@ -8,7 +8,7 @@ import android.widget.RadioGroup;
 
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseActivity;
-import com.wgheng.myapp.dazen.DaRenFragment;
+import com.wgheng.myapp.dazen.fragment.DaRenFragment;
 import com.wgheng.myapp.mgz.MGZFragment;
 import com.wgheng.myapp.self.SelfFragment;
 import com.wgheng.myapp.share.ShareFragment;

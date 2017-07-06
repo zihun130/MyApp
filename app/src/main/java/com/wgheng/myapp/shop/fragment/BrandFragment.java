@@ -35,7 +35,7 @@ public class BrandFragment extends BaseFragment {
 
     @Override
     protected View initView() {
-        View rooView = View.inflate(getActivity(), R.layout.fragment_shop_child, null);
+        View rooView = View.inflate(getActivity(), R.layout.fragment_recycler_list, null);
         rooView.setBackgroundColor(Color.parseColor("#808080"));
         return rooView;
     }
