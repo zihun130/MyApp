@@ -66,9 +66,8 @@ public class HomeFragment extends BaseFragment {
     private void processData(String s) {
         Log.d("tag", "processData: "+s);
         HomeBean homeBean = JSON.parseObject(s,HomeBean.class);
-        List<HomeBean.DataBean.ItemsBean.ListBean> listBeen = homeBean.getData().getItems().getList();
-        initRecyclerView(listBeen);
-
+        List<HomeBean.DataBean.ItemsBean.ListBean> listBeans = homeBean.getData().getItems().getList();
+        initRecyclerView(listBeans);
     }
 
     private void initRecyclerView(List<HomeBean.DataBean.ItemsBean.ListBean> listBeen) {
