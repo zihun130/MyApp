@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.wgheng.myapp.R;
@@ -68,9 +67,12 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         switch (viewType) {
             case 1:
                 ViewHolderOne holderOne = (ViewHolderOne) holder;
-                Glide.with(context).load(listBean.getOne().getPic_url()).into(((ViewHolderOne) holder).iv);
+                Glide.with(context).load(listBean.getOne().getPic_url()).into(holderOne.iv);
                 break;
             case 2:
+                ViewHolderTwo holderTwo = (ViewHolderTwo) holder;
+                Glide.with(context).load(listBean.getOne().getPic_url()).into(holderTwo.iv1);
+                Glide.with(context).load(listBean.getTwo().getPic_url()).into(holderTwo.iv2);
                 break;
             case 3:
             case 4:
@@ -115,8 +117,11 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
     static class ViewHolderTwo extends RecyclerView.ViewHolder {
-        @BindView(R.id.ll_two_child)
-        LinearLayout llTwoChild;
+
+        @BindView(R.id.iv1)
+        ImageView iv1;
+        @BindView(R.id.iv2)
+        ImageView iv2;
 
         ViewHolderTwo(View view) {
             super(view);
