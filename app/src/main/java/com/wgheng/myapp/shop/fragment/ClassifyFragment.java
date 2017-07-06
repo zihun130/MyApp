@@ -1,5 +1,6 @@
 package com.wgheng.myapp.shop.fragment;
 
+import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +29,9 @@ public class ClassifyFragment extends BaseFragment {
 
     @Override
     protected View initView() {
-        return View.inflate(getActivity(), R.layout.fragment_shop_child, null);
+        View rootView = View.inflate(getActivity(), R.layout.fragment_shop_child, null);
+        rootView.setBackgroundColor(Color.parseColor("#1e2125"));
+        return rootView;
     }
 
     @Override

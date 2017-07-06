@@ -56,7 +56,7 @@ public abstract class BaseFragment extends Fragment {
      * 联网请求数据
      * @param url
      */
-    private void getData(String url) {
+    protected void getData(String url) {
 
         if(TextUtils.isEmpty(url)) {
             return;
