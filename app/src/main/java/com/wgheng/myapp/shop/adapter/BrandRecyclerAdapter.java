@@ -50,15 +50,31 @@ public class BrandRecyclerAdapter extends RecyclerView.Adapter<BrandRecyclerAdap
     }
 
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_brand_logo)
         ImageView ivBrandLogo;
         @BindView(R.id.tv_brand_name)
         TextView tvBrandName;
 
-        ViewHolder(View view) {
+        ViewHolder(final View view) {
             super(view);
             ButterKnife.bind(this, view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClicked(view, getLayoutPosition());
+                }
+            });
         }
+    }
+
+    private ClassifyRecyclerAdapter.OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClicked(View view, int layoutPosition);
+    }
+
+    public void setOnItemClickListener(ClassifyRecyclerAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

@@ -1,5 +1,6 @@
 package com.wgheng.myapp.shop.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -12,7 +13,9 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
 import com.wgheng.myapp.common.Constant;
+import com.wgheng.myapp.shop.activity.BrandDetailActivity;
 import com.wgheng.myapp.shop.adapter.BrandRecyclerAdapter;
+import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
 import com.wgheng.myapp.shop.bean.BrandBean;
 
 import java.util.List;
@@ -78,6 +81,16 @@ public class BrandFragment extends BaseFragment {
         //设置刷新样式
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        adapter.setOnItemClickListener(new ClassifyRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Intent intent = new Intent(BrandFragment.this.getActivity(), BrandDetailActivity.class);
+                intent.putExtra("brand_id", itemsBeans.get(position - 1).getBrand_id()+"");
+                intent.putExtra("image_url", itemsBeans.get(position - 1).getBrand_logo());
+                intent.putExtra("brand_name", itemsBeans.get(position - 1).getBrand_name());
+                startActivity(intent);
+            }
+        });
     }
 
     class LoadingListener implements XRecyclerView.LoadingListener {
@@ -100,6 +113,4 @@ public class BrandFragment extends BaseFragment {
             }
         }
     }
-
-
 }

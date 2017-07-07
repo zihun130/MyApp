@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1e2125"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@drawable/brand_bg">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_brand_logo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/tv_brand_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="120dp"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            tools:text="品牌名称" />
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_brand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <RadioButton
+            android:id="@+id/rb_brand_story"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_brand_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="品牌故事"
+            android:textColor="@drawable/rb_brand_text_color_selector"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_brand_product"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_brand_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="品牌产品"
+            android:textColor="@drawable/rb_brand_text_color_selector"
+            android:textSize="12sp" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_brand_story"
+            android:textSize="12sp"
+            android:textColor="#818284"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+</LinearLayout>
+
