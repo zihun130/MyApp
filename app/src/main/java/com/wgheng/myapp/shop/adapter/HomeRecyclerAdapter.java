@@ -1,6 +1,7 @@
 package com.wgheng.myapp.shop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.wgheng.myapp.R;
+import com.wgheng.myapp.shop.activity.WebActivity;
 import com.wgheng.myapp.shop.bean.HomeBean;
 
 import java.util.List;
@@ -63,17 +65,20 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        HomeBean.DataBean.ItemsBean.ListBean listBean = listBeans.get(position);
+        final HomeBean.DataBean.ItemsBean.ListBean listBean = listBeans.get(position);
         int viewType = getItemViewType(position);
         switch (viewType) {
             case 1:
-                ViewHolderOne holderOne = (ViewHolderOne) holder;
+                final ViewHolderOne holderOne = (ViewHolderOne) holder;
                 Glide.with(context).load(listBean.getOne().getPic_url()).into(holderOne.iv);
+                setOnclickListener(holderOne.iv, listBean.getOne().getTopic_name(), listBean.getOne().getTopic_url());
                 break;
             case 2:
                 ViewHolderTwo holderTwo = (ViewHolderTwo) holder;
                 Glide.with(context).load(listBean.getOne().getPic_url()).into(holderTwo.iv1);
                 Glide.with(context).load(listBean.getTwo().getPic_url()).into(holderTwo.iv2);
+                setOnclickListener(holderTwo.iv1,listBean.getOne().getTopic_name(),listBean.getOne().getTopic_url());
+                setOnclickListener(holderTwo.iv2,listBean.getTwo().getTopic_name(),listBean.getOne().getTopic_url());
                 break;
             case 3:
             case 4:
@@ -105,6 +110,18 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         return viewType;
+    }
+
+    private void setOnclickListener(ImageView iv, final String title, final String url) {
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, WebActivity.class);
+                intent.putExtra("title", title);
+                intent.putExtra("url", url);
+                context.startActivity(intent);
+            }
+        });
     }
 
     static class ViewHolderOne extends RecyclerView.ViewHolder {
@@ -144,14 +161,18 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ButterKnife.bind(this, view);
         }
 
-        public void setData(HomeBean.DataBean.ItemsBean.ListBean listBean) {
+        public void setData(final HomeBean.DataBean.ItemsBean.ListBean listBean) {
 
             llLeft.removeAllViews();
             llRight.removeAllViews();
 
             ImageView iv1 = getImageView();
+            setOnclickListener(iv1, listBean.getOne().getTopic_name(), listBean.getOne().getTopic_url());
             ImageView iv2 = getImageView();
+            setOnclickListener(iv2, listBean.getTwo().getTopic_name(), listBean.getOne().getTopic_url());
             ImageView iv3 = getImageView();
+            setOnclickListener(iv3, listBean.getThree().getTopic_name(), listBean.getOne().getTopic_url());
+
 
             Glide.with(context).load(listBean.getOne().getPic_url()).into(iv1);
             Glide.with(context).load(listBean.getTwo().getPic_url()).into(iv2);
@@ -163,6 +184,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             if (listBean.getFour() != null) {
                 ImageView iv4 = getImageView();
+                setOnclickListener(iv4, listBean.getFour().getTopic_name(), listBean.getOne().getTopic_url());
                 Glide.with(context).load(listBean.getFour().getPic_url()).into(iv4);
                 llRight.addView(iv4);
             }

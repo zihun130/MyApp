@@ -52,6 +52,7 @@ public class HomeFragment extends BaseFragment {
     private void initRecyclerView(List<HomeBean.DataBean.ItemsBean.ListBean> listBeen) {
         adapter = new HomeRecyclerAdapter(getActivity(),listBeen);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(manager);
     }
 }
