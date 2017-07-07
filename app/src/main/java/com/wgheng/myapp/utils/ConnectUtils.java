@@ -1,8 +1,6 @@
 package com.wgheng.myapp.utils;
 
 
-import java.io.IOException;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -24,14 +22,27 @@ public class ConnectUtils {
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<String> e) throws Exception {
+//                HttpHelper.getInstance().get(url, new HttpHelper.CallBack() {
+//                    @Override
+//                    public void onFailure(IOException ex) {
+//                        e.onError(ex);
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String json) throws IOException {
+//                        e.onNext(json);
+//                        e.onComplete();
+//                    }
+//                });
+
                 HttpHelper.getInstance().get(url, new HttpHelper.CallBack() {
                     @Override
-                    public void onFailure(IOException ex) {
-                        e.onError(ex);
+                    public void onFailure(String message) {
+                        e.onError(new Exception(message));
                     }
 
                     @Override
-                    public void onResponse(String json) throws IOException {
+                    public void onResponse(String json) {
                         e.onNext(json);
                         e.onComplete();
                     }

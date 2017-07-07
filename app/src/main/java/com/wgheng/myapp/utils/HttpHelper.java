@@ -1,15 +1,10 @@
 package com.wgheng.myapp.utils;
 
-import android.support.annotation.NonNull;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 /**
  * Created by wgheng on 2017/6/21.
@@ -41,29 +36,42 @@ public class HttpHelper {
      * @param callBack
      */
     public void get(String url, final CallBack callBack) {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .build();
+//
+//        okHttpClient.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+//                callBack.onFailure(e);
+//            }
+//
+//            @Override
+//            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+//                ResponseBody body = response.body();
+//                if (body != null) {
+//                    callBack.onResponse(body.string());
+//                }
+//            }
+//        });
 
-        okHttpClient.newCall(request).enqueue(new Callback() {
+        OkGo.<String>get(url).execute(new StringCallback() {
             @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                callBack.onFailure(e);
+            public void onSuccess(Response<String> response) {
+                callBack.onResponse(response.body().toString());
             }
 
             @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                ResponseBody body = response.body();
-                if (body != null) {
-                    callBack.onResponse(body.string());
-                }
+            public void onError(Response<String> response) {
+                super.onError(response);
+                callBack.onFailure(response.body().toString());
             }
         });
     }
 
     public interface CallBack {
-        void onFailure(IOException e);
+        void onFailure(String message);
 
-        void onResponse(String json) throws IOException;
+        void onResponse(String json);
     }
 }

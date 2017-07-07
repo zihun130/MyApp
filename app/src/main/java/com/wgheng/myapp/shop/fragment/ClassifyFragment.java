@@ -70,7 +70,6 @@ public class ClassifyFragment extends BaseFragment {
                 Intent intent = new Intent(ClassifyFragment.this.getActivity(), ClassifyDetailActivity.class);
                 intent.putExtra("url", urls[position - 1]);
                 startActivity(intent);
-                Log.d("tag", "onItemClicked: " + position);
             }
         });
     }

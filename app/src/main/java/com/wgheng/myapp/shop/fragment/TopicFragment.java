@@ -1,5 +1,6 @@
 package com.wgheng.myapp.shop.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -12,6 +13,8 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
 import com.wgheng.myapp.common.Constant;
+import com.wgheng.myapp.shop.activity.WebActivity;
+import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
 import com.wgheng.myapp.shop.adapter.TopicRecyclerAdapter;
 import com.wgheng.myapp.shop.bean.TopicBean;
 
@@ -78,6 +81,15 @@ public class TopicFragment extends BaseFragment {
         //设置刷新样式
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        adapter.setOnItemClickListener(new ClassifyRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("title", itemsBeans.get(position - 1).getTopic_name());
+                intent.putExtra("url", itemsBeans.get(position - 1).getTopic_url());
+                startActivity(intent);
+            }
+        });
     }
 
     class LoadingListener implements XRecyclerView.LoadingListener {

@@ -71,7 +71,7 @@
 
         <FrameLayout
             android:id="@+id/fl_origin_price"
-            android:layout_width="35dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp">
 
