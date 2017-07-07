@@ -46,14 +46,30 @@ public class ClassifyRecyclerAdapter extends RecyclerView.Adapter<ClassifyRecycl
         return itemsBeans == null ? 0 : itemsBeans.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv)
         ImageView iv;
 
-        public ViewHolder(View view) {
+        public ViewHolder(final View view) {
             super(view);
             ButterKnife.bind(this, view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClicked(view,getLayoutPosition());
+                }
+            });
         }
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClicked(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
 }

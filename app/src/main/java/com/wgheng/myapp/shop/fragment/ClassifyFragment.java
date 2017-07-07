@@ -1,5 +1,6 @@
 package com.wgheng.myapp.shop.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
@@ -10,6 +11,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
 import com.wgheng.myapp.common.Constant;
+import com.wgheng.myapp.shop.activity.ClassifyDetailActivity;
 import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
 import com.wgheng.myapp.shop.bean.ClassifyBean;
 
@@ -26,6 +28,11 @@ public class ClassifyFragment extends BaseFragment {
     @BindView(R.id.recycler_view)
     XRecyclerView recyclerView;
     private ClassifyRecyclerAdapter adapter;
+    private List<ClassifyBean.DataBean.ItemsBean> itemsBeans;
+    private String[] urls = {Constant.HOUSEHOLDER_URL,Constant.FURNITURE_URL,Constant.STATIONERY_URL,Constant.DIGIT_URL,Constant.PALY_URL,
+            Constant.KITCHEN_URL,Constant.FOODS_URL,Constant.MENSWEAR_URL,Constant.WOMENSWEAR_URL,Constant.CHILD_URL,
+            Constant.SHOES_URL,Constant.DECOR_URL,Constant.MEICARE_URL,Constant.OUTSIDE_URL,Constant.PLANT_URL,
+            Constant.BOOK_URL,Constant.GIFTCLASSIFY_URL,Constant.RECOMMEND_URL,Constant.ARTS_URL};
 
     @Override
     protected View initView() {
@@ -48,7 +55,7 @@ public class ClassifyFragment extends BaseFragment {
     protected void processData(String s) {
         Log.d("tag", "processData: "+s);
         ClassifyBean classifyBean = JSON.parseObject(s, ClassifyBean.class);
-        List<ClassifyBean.DataBean.ItemsBean> itemsBeans = classifyBean.getData().getItems();
+        itemsBeans = classifyBean.getData().getItems();
 
         initRecyclerView(itemsBeans);
     }
@@ -57,5 +64,13 @@ public class ClassifyFragment extends BaseFragment {
         adapter = new ClassifyRecyclerAdapter(getActivity(),itemsBeans);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        adapter.setOnItemClickListener(new ClassifyRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Intent intent = new Intent(ClassifyFragment.this.getActivity(), ClassifyDetailActivity.class);
+                intent.putExtra("url", urls[position]);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar" />
+    
+    <LinearLayout
+        android:id="@+id/ll_price_filter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="价格筛选"
+            android:textSize="15sp"
+            android:paddingLeft="10dp"
+            android:layout_height="wrap_content" />
+        
+        <ImageView
+            android:paddingRight="10dp"
+            android:src="@drawable/arrow_down_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

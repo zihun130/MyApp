@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".common.MainActivity" />
-        <activity android:name=".shop.activity.WebActivity"></activity>
+        <activity android:name=".shop.activity.WebActivity" />
+        <activity android:name=".shop.activity.ClassifyDetailActivity"></activity>
     </application>
 
 </manifest>
