@@ -77,10 +77,13 @@ public class GiftFragment extends BaseFragment {
                 break;
         }
 
-        bundle.putString("url", url);
-        ClassifyDetailFragment classifyDetailFragment = new ClassifyDetailFragment();
-        classifyDetailFragment.setArguments(bundle);
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fl_main, classifyDetailFragment).addToBackStack(null).commit();
+        if (view.getId() != R.id.ll_gift_remind) {
+            bundle.putString("url", url);
+            ClassifyDetailFragment classifyDetailFragment = new ClassifyDetailFragment();
+            classifyDetailFragment.setArguments(bundle);
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.fl_main, classifyDetailFragment).addToBackStack(null).commit();
+        }
+
     }
 }

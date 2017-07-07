@@ -106,7 +106,15 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
 
+        //从回退栈结束当前fragment，若回退栈有fragment返回true，否则返回false
+        boolean isPopped = getSupportFragmentManager().popBackStackImmediate();
+
+
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if(isPopped) {
+                return true;
+            }
+
             if (!isExit) {
                 isExit = true;
                 new Timer().schedule(new TimerTask() {
