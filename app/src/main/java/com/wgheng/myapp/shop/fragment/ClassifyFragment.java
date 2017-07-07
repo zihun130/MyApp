@@ -29,10 +29,10 @@ public class ClassifyFragment extends BaseFragment {
     XRecyclerView recyclerView;
     private ClassifyRecyclerAdapter adapter;
     private List<ClassifyBean.DataBean.ItemsBean> itemsBeans;
-    private String[] urls = {Constant.HOUSEHOLDER_URL,Constant.FURNITURE_URL,Constant.STATIONERY_URL,Constant.DIGIT_URL,Constant.PALY_URL,
-            Constant.KITCHEN_URL,Constant.FOODS_URL,Constant.MENSWEAR_URL,Constant.WOMENSWEAR_URL,Constant.CHILD_URL,
-            Constant.SHOES_URL,Constant.DECOR_URL,Constant.MEICARE_URL,Constant.OUTSIDE_URL,Constant.PLANT_URL,
-            Constant.BOOK_URL,Constant.GIFTCLASSIFY_URL,Constant.RECOMMEND_URL,Constant.ARTS_URL};
+    private String[] urls = {Constant.HOUSEHOLDER_URL, Constant.FURNITURE_URL, Constant.STATIONERY_URL, Constant.DIGIT_URL, Constant.PALY_URL,
+            Constant.KITCHEN_URL, Constant.FOODS_URL, Constant.MENSWEAR_URL, Constant.WOMENSWEAR_URL, Constant.CHILD_URL,
+            Constant.SHOES_URL, Constant.DECOR_URL, Constant.MEICARE_URL, Constant.OUTSIDE_URL, Constant.PLANT_URL,
+            Constant.BOOK_URL, Constant.GIFTCLASSIFY_URL, Constant.RECOMMEND_URL, Constant.ARTS_URL};
 
     @Override
     protected View initView() {
@@ -53,7 +53,7 @@ public class ClassifyFragment extends BaseFragment {
 
     @Override
     protected void processData(String s) {
-        Log.d("tag", "processData: "+s);
+        Log.d("tag", "processData: " + s);
         ClassifyBean classifyBean = JSON.parseObject(s, ClassifyBean.class);
         itemsBeans = classifyBean.getData().getItems();
 
@@ -61,15 +61,16 @@ public class ClassifyFragment extends BaseFragment {
     }
 
     private void initRecyclerView(List<ClassifyBean.DataBean.ItemsBean> itemsBeans) {
-        adapter = new ClassifyRecyclerAdapter(getActivity(),itemsBeans);
+        adapter = new ClassifyRecyclerAdapter(getActivity(), itemsBeans);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         adapter.setOnItemClickListener(new ClassifyRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
                 Intent intent = new Intent(ClassifyFragment.this.getActivity(), ClassifyDetailActivity.class);
-                intent.putExtra("url", urls[position]);
+                intent.putExtra("url", urls[position - 1]);
                 startActivity(intent);
+                Log.d("tag", "onItemClicked: " + position);
             }
         });
     }
