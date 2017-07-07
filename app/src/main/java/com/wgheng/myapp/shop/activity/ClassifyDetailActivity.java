@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseActivity;
-import com.wgheng.myapp.shop.adapter.ClassifyDetailBean;
+import com.wgheng.myapp.shop.bean.ClassifyDetailBean;
 import com.wgheng.myapp.shop.adapter.ClassifyDetailRecyclerAdapter;
 
 import java.util.List;

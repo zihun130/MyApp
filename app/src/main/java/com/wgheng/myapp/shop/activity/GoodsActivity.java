@@ -1,7 +1,12 @@
 package com.wgheng.myapp.shop.activity;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.IdRes;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,12 +14,17 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseActivity;
 import com.wgheng.myapp.common.Constant;
+import com.wgheng.myapp.shop.bean.GoodsBean;
 import com.wgheng.myapp.view.PullUpToLoadMore;
 import com.youth.banner.Banner;
+import com.youth.banner.loader.ImageLoader;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -23,10 +33,10 @@ public class GoodsActivity extends BaseActivity {
 
     @BindView(R.id.banner)
     Banner banner;
+    @BindView(R.id.tv_brand_name1)
+    TextView tvBrandName1;
     @BindView(R.id.tv_good_name)
     TextView tvGoodName;
-    @BindView(R.id.tv_good_detail)
-    TextView tvGoodDetail;
     @BindView(R.id.iv_like)
     ImageView ivLike;
     @BindView(R.id.tv_like_number)
@@ -41,8 +51,8 @@ public class GoodsActivity extends BaseActivity {
     TextView tvOriginPrice;
     @BindView(R.id.fl_origin_price)
     FrameLayout flOriginPrice;
-    @BindView(R.id.iv_pre_sold)
-    TextView ivPreSold;
+    @BindView(R.id.tv_pre_sold)
+    TextView tvPreSold;
     @BindView(R.id.tv_choose_size)
     TextView tvChooseSize;
     @BindView(R.id.iv_brand_logo)
@@ -61,12 +71,12 @@ public class GoodsActivity extends BaseActivity {
     TextView tvAfterSaleTips;
     @BindView(R.id.ll_buy_tips)
     LinearLayout llBuyTips;
-    @BindView(R.id.recycler_view)
-    XRecyclerView recyclerView;
+    @BindView(R.id.ll_image_container)
+    LinearLayout llImageContainer;
     @BindView(R.id.tv_good_desc)
     TextView tvGoodDesc;
-    @BindView(R.id.tv_brand_name_too)
-    TextView tvBrandNameToo;
+    @BindView(R.id.tv_brand_name3)
+    TextView tvBrandName3;
     @BindView(R.id.tv_brand_desc)
     TextView tvBrandDesc;
     @BindView(R.id.ll_maybe_you_like)
@@ -85,6 +95,8 @@ public class GoodsActivity extends BaseActivity {
     TextView tvJustBuy;
     @BindView(R.id.ll_good_detail)
     LinearLayout llGoodDetail;
+    @BindView(R.id.tv_brand_name2)
+    TextView tvBrandName2;
 
     @Override
     public int getLayoutId() {
@@ -93,7 +105,6 @@ public class GoodsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        super.initView();
         rgBrand.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
@@ -114,13 +125,77 @@ public class GoodsActivity extends BaseActivity {
     @Override
     protected String getUrl() {
         String goods_id = getIntent().getStringExtra("goods_id");
-        return Constant.GOODS_DETIAL_URL_PART1+goods_id+Constant.GOODS_DETIAL_URL_PART2;
+        return Constant.GOODS_DETIAL_URL_PART1 + goods_id + Constant.GOODS_DETIAL_URL_PART2;
     }
 
     @Override
     protected void initData() {
         super.initData();
         rgBrand.check(R.id.rb_good_info);
+    }
+
+    @Override
+    protected void processData(String json) {
+        Log.d("tag", "processData:goods " + json);
+        GoodsBean goodsInfoBean = JSON.parseObject(json, GoodsBean.class);
+        GoodsBean.DataBean.ItemsBean itemsBean = goodsInfoBean.getData().getItems();
+
+        setPagerData(itemsBean);
+
+        setDetails(itemsBean);
+
+    }
+
+    private void setDetails(GoodsBean.DataBean.ItemsBean itemsBean) {
+        List<GoodsBean.DataBean.ItemsBean.GoodsInfoBean> goodsInfoBeans = itemsBean.getGoods_info();
+        for(int i = 0; i < goodsInfoBeans.size(); i++) {
+            if (goodsInfoBeans.get(i).getType() == 1) {
+                ImageView imageView = new ImageView(this);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                imageView.setLayoutParams(params);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                Glide.with(this).load(goodsInfoBeans.get(i).getContent().getImg()).into(imageView);
+                llImageContainer.addView(imageView);
+            } else {
+                TextView textView = new TextView(this);
+                textView.setText(goodsInfoBeans.get(i).getContent().getText());
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.bottomMargin = 30;
+                textView.setLayoutParams(params);
+                if (goodsInfoBeans.get(i).getType() == 2) {
+                    textView.setTextSize(15);
+                    textView.setTextColor(Color.WHITE);
+                } else {
+                    textView.setTextSize(12);
+                    textView.setTextColor(Color.parseColor("#8c8d8e"));
+                }
+                llImageContainer.addView(textView);
+            }
+        }
+    }
+
+    private void setPagerData(GoodsBean.DataBean.ItemsBean itemsBean) {
+        banner.setImageLoader(new GlideImageLoader())
+                .setImages(itemsBean.getImages_item())
+                .start();
+        if (!TextUtils.isEmpty(itemsBean.getDiscount_price())) {
+            tvRealPrice.setText("￥"+itemsBean.getDiscount_price());
+            tvOriginPrice.setText("￥"+itemsBean.getPrice());
+        } else {
+            tvRealPrice.setText("￥"+itemsBean.getPrice());
+            flOriginPrice.setVisibility(View.GONE);
+        }
+        tvBrandName1.setText(itemsBean.getBrand_info().getBrand_name());
+        tvBrandName2.setText(itemsBean.getBrand_info().getBrand_name());
+        tvBrandName3.setText(itemsBean.getBrand_info().getBrand_name());
+        tvGoodName.setText(itemsBean.getGoods_name());
+        tvAdvert.setText(itemsBean.getPromotion_note());
+        tvPreSold.setText(itemsBean.getShipping_str());
+        Glide.with(this).load(itemsBean.getBrand_info().getBrand_logo()).into(ivBrandLogo);
+        tvBuyTips.setText(itemsBean.getGood_guide().getContent());
+        tvBrandDesc.setText(itemsBean.getBrand_info().getBrand_desc());
+        tvLikeNumber.setText(itemsBean.getLike_count());
+        tvGoodDesc.setText(itemsBean.getGoods_desc());
     }
 
     @OnClick({R.id.iv_like, R.id.tv_choose_size, R.id.tv_after_sale_tips, R.id.iv_back, R.id.iv_cart, R.id.iv_call_center, R.id.tv_add_cart, R.id.tv_just_buy})
@@ -141,6 +216,14 @@ public class GoodsActivity extends BaseActivity {
                 break;
             case R.id.tv_just_buy:
                 break;
+        }
+    }
+
+    private class GlideImageLoader extends ImageLoader {
+
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            Glide.with(context).load(path).into(imageView);
         }
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
  * Created by wgheng on 2017/7/7.
  */
 
-public class GoodsInfo {
+public class GoodsBean {
     /**
      * meta : {"status":0,"server_time":"2017-07-07 21:03:36","account_id":0,"cost":0.019361972808838,"errdata":null,"errmsg":""}
      * version : 1
@@ -758,6 +758,15 @@ public class GoodsInfo {
                     private int width;
                     private int height;
                     private int length;
+                    private String text;
+
+                    public String getText() {
+                        return text;
+                    }
+
+                    public void setText(String text) {
+                        this.text = text;
+                    }
 
                     public String getImg() {
                         return img;

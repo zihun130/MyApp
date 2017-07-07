@@ -1,4 +1,4 @@
-package com.wgheng.myapp.shop.adapter;
+package com.wgheng.myapp.shop.bean;
 
 import java.util.List;
 

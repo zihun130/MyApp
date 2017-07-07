@@ -14,7 +14,7 @@
         android:scaleType="centerCrop" />
 
     <TextView
-        android:id="@+id/tv_good_name"
+        android:id="@+id/tv_brand_name1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#1e2125">
 
     <com.wgheng.myapp.view.PullUpToLoadMore
@@ -22,6 +23,7 @@
 
                 <com.youth.banner.Banner
                     android:id="@+id/banner"
+                    app:image_scale_type="fit_xy"
                     android:layout_width="match_parent"
                     android:layout_height="300dp" />
 
@@ -40,22 +42,22 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tv_good_name"
+                            android:id="@+id/tv_brand_name1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:lines="1"
                             android:textColor="#ffffff"
                             android:textSize="20sp"
-                            tools:text="商品名称" />
+                            tools:text="品牌名称" />
 
                         <TextView
-                            android:id="@+id/tv_good_detail"
+                            android:id="@+id/tv_good_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:textColor="#ffffff"
                             android:textSize="15sp"
-                            tools:text="描述信息" />
+                            tools:text="商品名称" />
 
                     </LinearLayout>
 
@@ -82,9 +84,9 @@
 
                         <ImageView
                             android:id="@+id/iv_share"
-                            android:layout_marginTop="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:src="@drawable/ic_share_liangcang" />
                     </LinearLayout>
 
@@ -125,7 +127,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:textColor="#ffffff"
+                            android:textColor="#78a5c4"
                             android:textSize="10sp"
                             tools:text="原价" />
 
@@ -133,7 +135,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="1dp"
                             android:layout_gravity="center"
-                            android:background="#ffffff" />
+                            android:background="#78a5c4" />
                     </FrameLayout>
                 </LinearLayout>
 
@@ -161,7 +163,7 @@
                         android:textColor="#404142" />
 
                     <TextView
-                        android:id="@+id/iv_pre_sold"
+                        android:id="@+id/tv_pre_sold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -204,6 +206,7 @@
                         android:layout_height="50dp" />
 
                     <TextView
+                        android:id="@+id/tv_brand_name2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
@@ -226,7 +229,7 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="60dp"
                         android:background="#2c2f34"
                         android:gravity="center"
                         android:text="继续拖动查看图文详情"
@@ -250,7 +253,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:background="#2c2f34"
                     android:gravity="center"
                     android:text="下拉查看商品概览"
@@ -290,8 +293,8 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginTop="30dp">
 
                     <LinearLayout
@@ -325,10 +328,11 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.jcodecraeer.xrecyclerview.XRecyclerView
-                            android:id="@+id/recycler_view"
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:id="@+id/ll_image_container"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="wrap_content"/>
 
                         <TextView
                             android:id="@+id/tv_good_desc"
@@ -354,7 +358,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:text="品牌简介"
-                                android:textColor="#818284"
+                                android:textColor="#8c8d8e"
                                 android:textSize="12sp" />
 
                             <View
@@ -366,9 +370,10 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tv_brand_name_too"
+                            android:id="@+id/tv_brand_name3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="#8c8d8e"
                             android:textSize="20sp" />
 
                         <TextView
@@ -376,6 +381,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
+                            android:textColor="#8c8d8e"
                             android:textSize="12sp" />
 
                         <LinearLayout
@@ -407,10 +413,10 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:orientation="vertical"
                             android:id="@+id/ll_maybe_you_like"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
                         </LinearLayout>
 
@@ -440,38 +446,38 @@
         android:src="@drawable/actionbar_navigation_cart" />
 
     <LinearLayout
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:layout_gravity="bottom">
 
         <ImageView
-            android:gravity="center"
-            android:padding="10dp"
-            android:background="#1b4a6d"
-            android:src="@drawable/ic_customer_service_bottom"
             android:id="@+id/iv_call_center"
             android:layout_width="45dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="#1b4a6d"
+            android:gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/ic_customer_service_bottom" />
 
         <TextView
             android:id="@+id/tv_add_cart"
-            android:background="#3a668e"
-            android:text="加入购物车"
-            android:textColor="#ffffff"
-            android:gravity="center"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#3a668e"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="#ffffff" />
 
         <TextView
             android:id="@+id/tv_just_buy"
-            android:background="#6f98c3"
-            android:text="直接购买"
-            android:gravity="center"
-            android:textColor="#ffffff"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_height="match_parent" />
+            android:background="#6f98c3"
+            android:gravity="center"
+            android:text="直接购买"
+            android:textColor="#ffffff" />
 
     </LinearLayout>
 

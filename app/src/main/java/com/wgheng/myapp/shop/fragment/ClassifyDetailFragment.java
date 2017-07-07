@@ -1,5 +1,6 @@
 package com.wgheng.myapp.shop.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
@@ -13,7 +14,8 @@ import com.alibaba.fastjson.JSON;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
-import com.wgheng.myapp.shop.adapter.ClassifyDetailBean;
+import com.wgheng.myapp.shop.activity.GoodsActivity;
+import com.wgheng.myapp.shop.bean.ClassifyDetailBean;
 import com.wgheng.myapp.shop.adapter.ClassifyDetailRecyclerAdapter;
 
 import java.util.List;
@@ -36,7 +38,6 @@ public class ClassifyDetailFragment extends BaseFragment {
     XRecyclerView recyclerView;
     private ClassifyDetailRecyclerAdapter adapter;
     private List<ClassifyDetailBean.DataBean.ItemsBean> itemsBeans;
-
 
 
     @Override
@@ -67,14 +68,18 @@ public class ClassifyDetailFragment extends BaseFragment {
         initRecyclerView(itemsBeans);
     }
 
-    private void initRecyclerView(List<ClassifyDetailBean.DataBean.ItemsBean> itemsBeans) {
+    private void initRecyclerView(final List<ClassifyDetailBean.DataBean.ItemsBean> itemsBeans) {
         adapter = new ClassifyDetailRecyclerAdapter(getActivity(), itemsBeans);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView.setLoadingMoreEnabled(false);
+        recyclerView.setPullRefreshEnabled(false);
         adapter.setOnItemClickListener(new ClassifyDetailRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-                Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), GoodsActivity.class);
+                intent.putExtra("goods_id", itemsBeans.get(position - 1).getGoods_id());
+                startActivity(intent);
             }
         });
     }

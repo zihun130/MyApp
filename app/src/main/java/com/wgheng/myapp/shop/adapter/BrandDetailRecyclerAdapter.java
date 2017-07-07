@@ -63,7 +63,7 @@ public class BrandDetailRecyclerAdapter extends RecyclerView.Adapter<BrandDetail
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv)
         ImageView iv;
-        @BindView(R.id.tv_good_name)
+        @BindView(R.id.tv_brand_name1)
         TextView tvGoodName;
         @BindView(R.id.tv_brand_name)
         TextView tvBrandName;

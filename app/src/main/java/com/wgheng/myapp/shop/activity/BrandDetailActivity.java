@@ -1,5 +1,6 @@
 package com.wgheng.myapp.shop.activity;
 
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
@@ -7,7 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
@@ -93,7 +93,7 @@ public class BrandDetailActivity extends BaseActivity {
         initRecyclerView(itemsBeans);
     }
 
-    private void initRecyclerView(List<BrandDetailBean.DataBean.ItemsBean> itemsBeans) {
+    private void initRecyclerView(final List<BrandDetailBean.DataBean.ItemsBean> itemsBeans) {
         adapter = new BrandDetailRecyclerAdapter(this, itemsBeans);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -102,7 +102,9 @@ public class BrandDetailActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BrandDetailRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-                Toast.makeText(BrandDetailActivity.this, position + "", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(BrandDetailActivity.this, GoodsActivity.class);
+                intent.putExtra("goods_id", itemsBeans.get(position - 1).getGoods_id());
+                startActivity(intent);
             }
         });
     }

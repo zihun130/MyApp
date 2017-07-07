@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wgheng.myapp.R;
+import com.wgheng.myapp.shop.bean.ClassifyDetailBean;
 
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class ClassifyDetailRecyclerAdapter extends RecyclerView.Adapter<Classify
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv)
         ImageView iv;
-        @BindView(R.id.tv_good_name)
+        @BindView(R.id.tv_brand_name1)
         TextView tvGoodName;
         @BindView(R.id.tv_brand_name)
         TextView tvBrandName;
