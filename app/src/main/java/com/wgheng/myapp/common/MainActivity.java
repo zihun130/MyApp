@@ -3,8 +3,10 @@ package com.wgheng.myapp.common;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseActivity;
@@ -16,6 +18,8 @@ import com.wgheng.myapp.shop.fragment.ShopFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 
@@ -28,6 +32,7 @@ public class MainActivity extends BaseActivity {
     private List<Fragment> fragments;
     private int position;
     private Fragment tempFragment;
+    private boolean isExit = false;
 
     @Override
     public int getLayoutId() {
@@ -98,4 +103,25 @@ public class MainActivity extends BaseActivity {
         fragments.add(new SelfFragment());
     }
 
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (!isExit) {
+                isExit = true;
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        isExit = false;
+                    }
+                }, 2000);
+                Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            finish();
+            return true;
+        }
+
+        return super.onKeyUp(keyCode, event);
+    }
 }
