@@ -1,6 +1,8 @@
 package com.wgheng.myapp.shop.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,7 +11,6 @@ import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
 import com.wgheng.myapp.common.Constant;
 import com.wgheng.myapp.common.LoginActivity;
-import com.wgheng.myapp.shop.activity.ClassifyDetailActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -46,33 +47,40 @@ public class GiftFragment extends BaseFragment {
 
     @OnClick({R.id.iv_gift_best, R.id.iv_festival, R.id.iv_love, R.id.iv_birthday, R.id.iv_friend, R.id.iv_child, R.id.iv_parent, R.id.ll_gift_remind})
     public void onClick(View view) {
-        Intent intent = new Intent(GiftFragment.this.getActivity(), ClassifyDetailActivity.class);
+        Bundle bundle = new Bundle();
+        String url = null;
         switch (view.getId()) {
             case R.id.iv_gift_best:
-                intent.putExtra("url", urls[0]);
+                url = urls[0];
                 break;
             case R.id.iv_festival:
-                intent.putExtra("url", urls[1]);
+                url = urls[1];
                 break;
             case R.id.iv_love:
-                intent.putExtra("url", urls[2]);
+                url = urls[2];
                 break;
             case R.id.iv_birthday:
-                intent.putExtra("url", urls[3]);
+                url = urls[3];
                 break;
             case R.id.iv_friend:
-                intent.putExtra("url", urls[4]);
+                url = urls[4];
                 break;
             case R.id.iv_child:
-                intent.putExtra("url", urls[5]);
+                url = urls[5];
                 break;
             case R.id.iv_parent:
-                intent.putExtra("url", urls[6]);
+                url = urls[6];
                 break;
             case R.id.ll_gift_remind:
-                intent = new Intent(GiftFragment.this.getActivity(), LoginActivity.class);
+                Intent intent = new Intent(GiftFragment.this.getActivity(), LoginActivity.class);
+                startActivity(intent);
                 break;
         }
-        startActivity(intent);
+
+        bundle.putString("url", url);
+        ClassifyDetailFragment classifyDetailFragment = new ClassifyDetailFragment();
+        classifyDetailFragment.setArguments(bundle);
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fl_main, classifyDetailFragment).addToBackStack(null).commit();
     }
 }

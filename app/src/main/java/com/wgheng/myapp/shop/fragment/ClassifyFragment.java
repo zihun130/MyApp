@@ -1,7 +1,8 @@
 package com.wgheng.myapp.shop.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +12,6 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
 import com.wgheng.myapp.common.Constant;
-import com.wgheng.myapp.shop.activity.ClassifyDetailActivity;
 import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
 import com.wgheng.myapp.shop.bean.ClassifyBean;
 
@@ -70,9 +70,12 @@ public class ClassifyFragment extends BaseFragment {
         adapter.setOnItemClickListener(new ClassifyRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-                Intent intent = new Intent(ClassifyFragment.this.getActivity(), ClassifyDetailActivity.class);
-                intent.putExtra("url", urls[position - 1]);
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString("url",urls[position - 1]);
+                ClassifyDetailFragment classifyDetailFragment = new ClassifyDetailFragment();
+                classifyDetailFragment.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.add(R.id.fl_main,classifyDetailFragment).addToBackStack(null).commit();
             }
         });
     }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseActivity;
+import com.wgheng.myapp.common.Constant;
 import com.wgheng.myapp.view.PullUpToLoadMore;
 import com.youth.banner.Banner;
 
@@ -112,7 +113,8 @@ public class GoodsActivity extends BaseActivity {
 
     @Override
     protected String getUrl() {
-        return super.getUrl();
+        String goods_id = getIntent().getStringExtra("goods_id");
+        return Constant.GOODS_DETIAL_URL_PART1+goods_id+Constant.GOODS_DETIAL_URL_PART2;
     }
 
     @Override
@@ -131,6 +133,7 @@ public class GoodsActivity extends BaseActivity {
             case R.id.tv_after_sale_tips:
                 break;
             case R.id.iv_back:
+                finish();
                 break;
             case R.id.iv_call_center:
                 break;
