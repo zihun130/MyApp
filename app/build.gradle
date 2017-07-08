@@ -39,8 +39,8 @@ dependencies {
     compile 'com.alibaba:fastjson:1.1.59.android'
     compile 'com.lzy.net:okgo:3.0.2'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.youth.banner:banner:1.4.9'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
-    compile 'com.youth.banner:banner:1.4.9'
 }

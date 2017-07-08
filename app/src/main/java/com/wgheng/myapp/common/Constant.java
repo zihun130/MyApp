@@ -86,4 +86,10 @@ public class Constant {
     public static final String GOODS_DETIAL_URL_PART1 = "http://mobile.iliangcang.com/goods/goodsDetail?app_key=Android&goods_id=";
     public static final String GOODS_DETIAL_URL_PART2 = "&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
 
+    //达人详情
+    public static final String DAREN_DETIAL_URL_PART1 = "http://mobile.iliangcang.com/user/";
+    public static final String DAREN_DETIAL_URL_PART2 = "?app_key=Android&count=12&owner_id=";
+    public static final String DAREN_DETIAL_URL_PART3 = "&page=";
+    public static final String DAREN_DETIAL_URL_PART4 = "&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
+
 }

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#1e2125"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
+
+
+    <ImageView
+
+        android:id="@+id/iv_user"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_default_picture" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/iv_user"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        tools:text="用户名" />
+
+    <TextView
+        android:id="@+id/tv_username_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_username"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/iv_user"
+        android:textColor="#6b6d6e"
+        android:textSize="10sp"
+        tools:text="用户描述" />
+
+
+    <TextView
+        android:id="@+id/tv_private_msg"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/iv_user"
+        android:layout_alignParentRight="true"
+        android:background="#464749"
+        android:gravity="center"
+        android:text="私信"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/tv_mark"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/iv_user"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/tv_private_msg"
+        android:background="#575b61"
+        android:gravity="center"
+        android:text="关注"
+        android:textColor="#ffffff" />
+
+    <RadioGroup
+        android:id="@+id/rg_daren"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/iv_user"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+
+        <RadioButton
+            android:id="@+id/rb_daren_like"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/rb_daren_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            tools:text="喜欢\n0"
+            android:textColor="@drawable/rb_brand_text_color_selector"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#5a5d61" />
+
+        <RadioButton
+            android:id="@+id/rb_daren_recommend"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/rb_daren_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            tools:text="推荐\n0"
+            android:textColor="@drawable/rb_brand_text_color_selector"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#5a5d61" />
+
+        <RadioButton
+            android:id="@+id/rb_daren_mark"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/rb_daren_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            tools:text="关注\n0"
+            android:textColor="@drawable/rb_brand_text_color_selector"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#5a5d61" />
+
+        <RadioButton
+            android:id="@+id/rb_daren_fans"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/rb_daren_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            tools:text="粉丝\n0"
+            android:textColor="@drawable/rb_brand_text_color_selector"
+            android:textSize="12sp" />
+
+    </RadioGroup>
+
+</RelativeLayout>

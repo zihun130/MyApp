@@ -72,7 +72,6 @@ public class MainActivity extends BaseActivity {
         if (tempFragment != fragment) {
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
             if (fragment.isAdded()) {
                 ft.show(fragment);
             } else {

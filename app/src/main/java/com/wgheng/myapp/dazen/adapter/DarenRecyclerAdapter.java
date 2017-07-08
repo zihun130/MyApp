@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.dazen.bean.DazenBean;
+import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class DarenRecyclerAdapter extends RecyclerView.Adapter<DarenRecyclerAdap
     }
 
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_orig)
         ImageView ivOrig;
         @BindView(R.id.tv_username)
@@ -60,10 +61,26 @@ public class DarenRecyclerAdapter extends RecyclerView.Adapter<DarenRecyclerAdap
         @BindView(R.id.tv_duty)
         TextView tvDuty;
 
-        ViewHolder(View view) {
+        ViewHolder(final View view) {
             super(view);
             ButterKnife.bind(this, view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClicked(view,getLayoutPosition());
+                }
+            });
         }
+    }
+
+    private ClassifyRecyclerAdapter.OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClicked(View view, int position);
+    }
+
+    public void setOnItemClickListener(ClassifyRecyclerAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
 }

@@ -65,7 +65,7 @@ public class ClassifyRecyclerAdapter extends RecyclerView.Adapter<ClassifyRecycl
     private OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener {
-        void onItemClicked(View view, int layoutPosition);
+        void onItemClicked(View view, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

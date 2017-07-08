@@ -24,8 +24,9 @@
         <activity android:name=".shop.activity.WebActivity" />
         <activity android:name=".shop.activity.ClassifyDetailActivity" />
         <activity android:name=".shop.activity.BrandDetailActivity" />
-        <activity android:name=".common.LoginActivity"/>
-        <activity android:name=".shop.activity.GoodsActivity"/>
+        <activity android:name=".common.LoginActivity" />
+        <activity android:name=".shop.activity.GoodsActivity" />
+        <activity android:name=".dazen.activity.DarenDetailActivity"></activity>
     </application>
 
 </manifest>

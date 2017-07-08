@@ -1,5 +1,6 @@
 package com.wgheng.myapp.dazen.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,8 +17,10 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
 import com.wgheng.myapp.common.Constant;
+import com.wgheng.myapp.dazen.activity.DarenDetailActivity;
 import com.wgheng.myapp.dazen.adapter.DarenRecyclerAdapter;
 import com.wgheng.myapp.dazen.bean.DazenBean;
+import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
 
 import java.util.List;
 
@@ -106,6 +109,15 @@ public class DaRenFragment extends BaseFragment {
         //设置刷新样式
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+
+        adapter.setOnItemClickListener(new ClassifyRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Intent intent = new Intent(getActivity(), DarenDetailActivity.class);
+                intent.putExtra("user_id", itemsBeans.get(position - 1).getUid());
+                startActivity(intent);
+            }
+        });
     }
 
     @OnClick({R.id.iv_search, R.id.iv_menu})
