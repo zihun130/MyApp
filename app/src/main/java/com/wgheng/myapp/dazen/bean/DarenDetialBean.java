@@ -6,7 +6,7 @@ import java.util.List;
  * Created by wgheng on 2017/7/8.
  */
 
-public class DarenDetialBean1 {
+public class DarenDetialBean {
     /**
      * meta : {"status":0,"server_time":"2017-07-08 12:39:29","account_id":0,"cost":0.21685409545898,"errdata":null,"errmsg":""}
      * version : 1
@@ -172,6 +172,7 @@ public class DarenDetialBean1 {
             private String followed_count;
             private String template_id;
             private List<GoodsBean> goods;
+            private List<UsersBean> users;
 
             public String getUser_id() {
                 return user_id;
@@ -275,6 +276,14 @@ public class DarenDetialBean1 {
 
             public void setGoods(List<GoodsBean> goods) {
                 this.goods = goods;
+            }
+
+            public List<UsersBean> getUsers() {
+                return users;
+            }
+
+            public void setUsers(List<UsersBean> users) {
+                this.users = users;
             }
 
             public static class UserImageBean {
@@ -436,6 +445,108 @@ public class DarenDetialBean1 {
 
                 public void setPromotion_imgurl(String promotion_imgurl) {
                     this.promotion_imgurl = promotion_imgurl;
+                }
+            }
+
+            public static class UsersBean {
+                /**
+                 * user_id : 1000070901
+                 * is_daren : 0
+                 * user_name : oB8gDjzHe7H7917Ap-Y5
+                 * user_image : {"self_img":"0","orig":"http://imgs-qn.iliangcang.com/images/default/default180.png","mid":"http://imgs-qn.iliangcang.com/images/default/default50.png","tmb":"http://imgs-qn.iliangcang.com/images/default/default30.png"}
+                 * user_desc :
+                 */
+
+                private String user_id;
+                private String is_daren;
+                private String user_name;
+                private UserImageBeanX user_image;
+                private String user_desc;
+
+                public String getUser_id() {
+                    return user_id;
+                }
+
+                public void setUser_id(String user_id) {
+                    this.user_id = user_id;
+                }
+
+                public String getIs_daren() {
+                    return is_daren;
+                }
+
+                public void setIs_daren(String is_daren) {
+                    this.is_daren = is_daren;
+                }
+
+                public String getUser_name() {
+                    return user_name;
+                }
+
+                public void setUser_name(String user_name) {
+                    this.user_name = user_name;
+                }
+
+                public UserImageBeanX getUser_image() {
+                    return user_image;
+                }
+
+                public void setUser_image(UserImageBeanX user_image) {
+                    this.user_image = user_image;
+                }
+
+                public String getUser_desc() {
+                    return user_desc;
+                }
+
+                public void setUser_desc(String user_desc) {
+                    this.user_desc = user_desc;
+                }
+
+                public static class UserImageBeanX {
+                    /**
+                     * self_img : 0
+                     * orig : http://imgs-qn.iliangcang.com/images/default/default180.png
+                     * mid : http://imgs-qn.iliangcang.com/images/default/default50.png
+                     * tmb : http://imgs-qn.iliangcang.com/images/default/default30.png
+                     */
+
+                    private String self_img;
+                    private String orig;
+                    private String mid;
+                    private String tmb;
+
+                    public String getSelf_img() {
+                        return self_img;
+                    }
+
+                    public void setSelf_img(String self_img) {
+                        this.self_img = self_img;
+                    }
+
+                    public String getOrig() {
+                        return orig;
+                    }
+
+                    public void setOrig(String orig) {
+                        this.orig = orig;
+                    }
+
+                    public String getMid() {
+                        return mid;
+                    }
+
+                    public void setMid(String mid) {
+                        this.mid = mid;
+                    }
+
+                    public String getTmb() {
+                        return tmb;
+                    }
+
+                    public void setTmb(String tmb) {
+                        this.tmb = tmb;
+                    }
                 }
             }
         }

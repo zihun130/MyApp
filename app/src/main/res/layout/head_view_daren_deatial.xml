@@ -96,6 +96,7 @@
             android:button="@null"
             android:gravity="center"
             tools:text="推荐\n0"
+            android:checked="true"
             android:textColor="@drawable/rb_brand_text_color_selector"
             android:textSize="12sp" />
 
