@@ -1,8 +1,7 @@
 package com.wgheng.myapp.common;
 
 import android.app.Application;
-
-import com.lzy.okgo.OkGo;
+import android.content.Context;
 
 /**
  * Created by wgheng on 2017/7/7.
@@ -10,9 +9,14 @@ import com.lzy.okgo.OkGo;
 
 public class MyApplication extends Application {
 
+    private static Context context;
     @Override
     public void onCreate() {
         super.onCreate();
-        OkGo.getInstance().init(this);
+        context = getApplicationContext();
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

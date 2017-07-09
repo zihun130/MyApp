@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wgheng.myapp.utils.CacheUtils;
 import com.wgheng.myapp.utils.ConnectUtils;
 
 import butterknife.ButterKnife;
@@ -46,6 +47,7 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 联网请求数据需重写此方法
+     *
      * @return url地址
      */
     protected String getUrl() {
@@ -54,13 +56,25 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 联网请求数据
+     *
      * @param url
      */
-    protected void getData(String url) {
+    protected void getData(final String url) {
 
-        if(TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url)) {
             return;
         }
+
+        //可用concat操作符检测三级缓存
+//        Observable<String> stringObservable = Observable.create(new ObservableOnSubscribe<String>() {
+//            @Override
+//            public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
+//                if (CacheUtils.getString(url) != null) {
+//                    e.onNext(CacheUtils.getString(url));
+//                }
+//                e.onComplete();
+//            }
+//        });
 
         ConnectUtils.getDataFromNet(url)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -68,6 +82,7 @@ public abstract class BaseFragment extends Fragment {
                     @Override
                     public void accept(@NonNull String s) throws Exception {
                         processData(s);
+                        CacheUtils.putString(url, s);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -79,6 +94,7 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 联网请求数据需重写此方法处理数据
+     *
      * @param json 联网获取的json
      */
     protected void processData(String json) {
