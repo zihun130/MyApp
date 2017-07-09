@@ -13,6 +13,8 @@ import com.wgheng.myapp.R;
 import com.wgheng.myapp.dazen.activity.DarenDetailActivity;
 import com.wgheng.myapp.dazen.bean.DarenDetialBean;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -22,14 +24,16 @@ import butterknife.ButterKnife;
 
 public class DarenDetialRecyclerAdapter extends RecyclerView.Adapter<DarenDetialRecyclerAdapter.ViewHolder> {
     private Context context;
-    private DarenDetialBean.DataBean.ItemsBean itemsBeans;
+    private DarenDetialBean.DataBean.ItemsBean itemsBean;
     private String type;
+    private List<DarenDetialBean.DataBean.ItemsBean.GoodsBean> goods;
+    private List<DarenDetialBean.DataBean.ItemsBean.UsersBean> users;
 
 
     public DarenDetialRecyclerAdapter(Context context, String type, DarenDetialBean.DataBean.ItemsBean itemsBean) {
         this.type = type;
         this.context = context;
-        this.itemsBeans = itemsBean;
+        this.itemsBean = itemsBean;
     }
 
     @Override
@@ -48,25 +52,22 @@ public class DarenDetialRecyclerAdapter extends RecyclerView.Adapter<DarenDetial
             case DarenDetailActivity.LIKE:
             case DarenDetailActivity.RECOMMEND:
 
-                DarenDetialBean.DataBean.ItemsBean.GoodsBean goodsBean = itemsBeans.getGoods().get(position);
-                Glide.with(context).load(goodsBean.getGoods_image()).into(holder.ivOrig);
+                Glide.with(context).load(goods.get(position).getGoods_image()).into(holder.ivOrig);
 
                 break;
             case DarenDetailActivity.MARK:
                 holder.tvUsername.setVisibility(View.VISIBLE);
                 holder.tvDuty.setVisibility(View.VISIBLE);
 
-                DarenDetialBean.DataBean.ItemsBean.UsersBean usersBean1 = itemsBeans.getUsers().get(position);
-                Glide.with(context).load(usersBean1.getUser_image().getOrig()).into(holder.ivOrig);
-                holder.tvUsername.setText(usersBean1.getUser_name());
-                holder.tvDuty.setText(usersBean1.getUser_desc());
+                Glide.with(context).load(users.get(position).getUser_image().getOrig()).into(holder.ivOrig);
+                holder.tvUsername.setText(users.get(position).getUser_name());
+                holder.tvDuty.setText(users.get(position).getUser_desc());
 
                 break;
             case DarenDetailActivity.FANS:
                 holder.tvUsername.setVisibility(View.VISIBLE);
-                DarenDetialBean.DataBean.ItemsBean.UsersBean usersBean2 = itemsBeans.getUsers().get(position);
-                Glide.with(context).load(usersBean2.getUser_image().getOrig()).into(holder.ivOrig);
-                holder.tvUsername.setText(usersBean2.getUser_name());
+                Glide.with(context).load(users.get(position).getUser_image().getOrig()).into(holder.ivOrig);
+                holder.tvUsername.setText(users.get(position).getUser_name());
 
                 break;
         }
@@ -75,19 +76,40 @@ public class DarenDetialRecyclerAdapter extends RecyclerView.Adapter<DarenDetial
     @Override
     public int getItemCount() {
         if (DarenDetailActivity.LIKE.equals(type) || DarenDetailActivity.RECOMMEND.equals(type)) {
-            return itemsBeans.getGoods() == null ? 0 : itemsBeans.getGoods().size();
+            goods = itemsBean.getGoods();
+            return goods == null ? 0 : goods.size();
         } else if (DarenDetailActivity.MARK.equals(type) || DarenDetailActivity.FANS.equals(type)) {
-            return itemsBeans.getUsers() == null ? 0 : itemsBeans.getUsers().size();
+            users = itemsBean.getUsers();
+            return users == null ? 0 : users.size();
         }
         return 0;
     }
 
     public void changDataType(String type, DarenDetialBean.DataBean.ItemsBean itemsBeans) {
         this.type = type;
-        this.itemsBeans = itemsBeans;
+        this.itemsBean = itemsBeans;
         notifyDataSetChanged();
     }
 
+    //加载更多数据
+    public void loadMore(DarenDetialBean.DataBean.ItemsBean itemsBean) {
+        switch (type) {
+            case DarenDetailActivity.LIKE:
+            case DarenDetailActivity.RECOMMEND:
+
+                goods.addAll(itemsBean.getGoods());
+
+                break;
+            case DarenDetailActivity.MARK:
+            case DarenDetailActivity.FANS:
+
+                users.addAll(itemsBean.getUsers());
+
+                break;
+
+        }
+        notifyDataSetChanged();
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_orig)

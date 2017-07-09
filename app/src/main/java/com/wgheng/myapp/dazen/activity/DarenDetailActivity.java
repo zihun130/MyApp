@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseActivity;
@@ -37,7 +38,8 @@ public class DarenDetailActivity extends BaseActivity {
     private View headView;
     private DarenDetialRecyclerAdapter adapter;
     private DarenDetialBean darenDetialBean;
-    private boolean isFisrtLoad = true;
+    private boolean isLoadMore = false;
+    private boolean isFirstLoad = true;
     private RadioGroup rgDaren;
 
 
@@ -75,14 +77,22 @@ public class DarenDetailActivity extends BaseActivity {
         Log.d("tag", "processData: daren" + json);
         darenDetialBean = JSON.parseObject(json, DarenDetialBean.class);
 
-        if (isFisrtLoad) {
-            isFisrtLoad = false;
+
+        //第一次进来才加载头部数据
+        if (isFirstLoad) {
+            isFirstLoad = false;
             setHeadView(darenDetialBean);
         }
 
+        if (!isLoadMore) {
+            showRecyclerView(darenDetialBean);
+            recyclerView.refreshComplete();
+        } else {
+            adapter.loadMore(darenDetialBean.getData().getItems());
+            recyclerView.loadMoreComplete();
+        }
         setHeadViewListener();
-
-        showRecyclerView(darenDetialBean);
+        setRecyclerViewListener();
     }
 
     //根据按钮RB状态切换数据
@@ -118,12 +128,38 @@ public class DarenDetailActivity extends BaseActivity {
             recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         }
 
+        //第一次加载创建，之后刷新
         if (adapter == null) {
             adapter = new DarenDetialRecyclerAdapter(this, type, darenDetialBean.getData().getItems());
             recyclerView.setAdapter(adapter);
         } else {
             adapter.changDataType(type, darenDetialBean.getData().getItems());
         }
+
+    }
+
+    public void setRecyclerViewListener() {
+
+        //设置刷新样式
+        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+
+        //设置下拉刷新和加载更多
+        recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                isLoadMore = false;
+                page = 1;
+                getData(combineUrl());
+            }
+
+            @Override
+            public void onLoadMore() {
+                isLoadMore = true;
+                page++;
+                getData(combineUrl());
+            }
+        });
     }
 
     private void setHeadView(DarenDetialBean darenDetialBean) {
