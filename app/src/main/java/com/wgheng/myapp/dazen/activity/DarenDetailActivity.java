@@ -23,12 +23,12 @@ import butterknife.BindView;
 
 public class DarenDetailActivity extends BaseActivity {
 
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.recycler_view)
     XRecyclerView recyclerView;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
     private int page = 1;
     private String type = RECOMMEND;
     public static final String LIKE = "masterLike";
@@ -53,6 +53,15 @@ public class DarenDetailActivity extends BaseActivity {
         super.initView();
         headView = View.inflate(this, R.layout.head_view_daren_deatial, null);
         recyclerView.addHeaderView(headView);
+        ivBack.setVisibility(View.VISIBLE);
+        tvTitle.setVisibility(View.VISIBLE);
+        tvTitle.setText("达人");
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -183,5 +192,4 @@ public class DarenDetailActivity extends BaseActivity {
         Glide.with(this).load(darenDetialBean.getData().getItems().getUser_image().getOrig()).into(ivUser);
 
     }
-
 }

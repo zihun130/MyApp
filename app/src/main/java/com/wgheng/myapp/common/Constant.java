@@ -92,4 +92,8 @@ public class Constant {
     public static final String DAREN_DETIAL_URL_PART3 = "&page=";
     public static final String DAREN_DETIAL_URL_PART4 = "&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
 
+    //杂志首页链接缺失(暂用下面替代)
+    public static final String MGZ_URL_PART1 = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=";
+    public static final String MGZ_URL_PART2 = "&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
+
 }

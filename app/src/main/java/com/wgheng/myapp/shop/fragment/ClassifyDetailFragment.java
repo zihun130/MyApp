@@ -15,8 +15,8 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
 import com.wgheng.myapp.shop.activity.GoodsActivity;
-import com.wgheng.myapp.shop.bean.ClassifyDetailBean;
 import com.wgheng.myapp.shop.adapter.ClassifyDetailRecyclerAdapter;
+import com.wgheng.myapp.shop.bean.ClassifyDetailBean;
 
 import java.util.List;
 
