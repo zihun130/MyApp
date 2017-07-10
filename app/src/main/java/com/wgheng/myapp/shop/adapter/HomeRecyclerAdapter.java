@@ -30,11 +30,13 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static final String HOME_TYPE_TWO = "2";
     public static final String HOME_TYPE_THREE = "3";
     public static final String HOME_TYPE_FOUR = "4";
+    public static final String HOME_TYPE_FIVE = "5";
+    public static final String HOME_TYPE_SIX = "6";
     private final Context context;
-    private final List<HomeBean.DataBean.ItemsBean.ListBean> listBeans;
+    private final List<HomeBean.DataBean.ItemsBean.ListBeanX> listBeans;
 
 
-    public HomeRecyclerAdapter(Context context, List<HomeBean.DataBean.ItemsBean.ListBean> listBeans) {
+    public HomeRecyclerAdapter(Context context, List<HomeBean.DataBean.ItemsBean.ListBeanX> listBeans) {
         this.context = context;
         this.listBeans = listBeans;
     }
@@ -46,6 +48,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         View view;
         switch (viewType) {
             case 1:
+            case 6:
                 view = LayoutInflater.from(context).inflate(R.layout.item_home_one_child, parent, false);
                 holder = new ViewHolderOne(view);
                 break;
@@ -65,25 +68,30 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final HomeBean.DataBean.ItemsBean.ListBean listBean = listBeans.get(position);
+        final HomeBean.DataBean.ItemsBean.ListBeanX listBean = listBeans.get(position);
         int viewType = getItemViewType(position);
         switch (viewType) {
             case 1:
-                final ViewHolderOne holderOne = (ViewHolderOne) holder;
-                Glide.with(context).load(listBean.getOne().getPic_url()).into(holderOne.iv);
-                setOnclickListener(holderOne.iv, listBean.getOne().getTopic_name(), listBean.getOne().getTopic_url());
+                final ViewHolderOne holderOne1 = (ViewHolderOne) holder;
+                Glide.with(context).load(listBean.getOne().getPic_url()).into(holderOne1.iv);
+                setOnclickListener(holderOne1.iv, listBean.getOne().getTopic_name(), listBean.getOne().getTopic_url());
                 break;
             case 2:
                 ViewHolderTwo holderTwo = (ViewHolderTwo) holder;
                 Glide.with(context).load(listBean.getOne().getPic_url()).into(holderTwo.iv1);
                 Glide.with(context).load(listBean.getTwo().getPic_url()).into(holderTwo.iv2);
-                setOnclickListener(holderTwo.iv1,listBean.getOne().getTopic_name(),listBean.getOne().getTopic_url());
-                setOnclickListener(holderTwo.iv2,listBean.getTwo().getTopic_name(),listBean.getOne().getTopic_url());
+                setOnclickListener(holderTwo.iv1, listBean.getOne().getTopic_name(), listBean.getOne().getTopic_url());
+                setOnclickListener(holderTwo.iv2, listBean.getTwo().getTopic_name(), listBean.getOne().getTopic_url());
                 break;
             case 3:
             case 4:
                 ViewHolderStagger holderStagger = (ViewHolderStagger) holder;
                 holderStagger.setData(listBean);
+                break;
+            case 6:
+                final ViewHolderOne holderOne2 = (ViewHolderOne) holder;
+                Glide.with(context).load(listBean.getList().get(0).getPic_url()).into(holderOne2.iv);
+                setOnclickListener(holderOne2.iv, listBean.getList().get(0).getTopic_name(), listBean.getList().get(0).getTopic_url());
                 break;
         }
     }
@@ -95,8 +103,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        HomeBean.DataBean.ItemsBean.ListBean listBean = listBeans.get(position);
-        String type = listBean.getHome_type();
+        HomeBean.DataBean.ItemsBean.ListBeanX listBean = listBeans.get(position);
+        String type =String.valueOf(listBean.getHome_type());
 
         int viewType = 0;
         if (HOME_TYPE_ONE.equals(type)) {
@@ -107,9 +115,17 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             viewType = 3;
         } else if (HOME_TYPE_FOUR.equals(type)) {
             viewType = 4;
+        } else if (HOME_TYPE_SIX.equals(type)) {
+            viewType = 6;
         }
 
         return viewType;
+    }
+
+    public void refresh(List<HomeBean.DataBean.ItemsBean.ListBeanX> listBeans) {
+        this.listBeans.clear();
+        this.listBeans.addAll(listBeans);
+        notifyDataSetChanged();
     }
 
     private void setOnclickListener(ImageView iv, final String title, final String url) {
@@ -161,7 +177,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ButterKnife.bind(this, view);
         }
 
-        public void setData(final HomeBean.DataBean.ItemsBean.ListBean listBean) {
+        public void setData(final HomeBean.DataBean.ItemsBean.ListBeanX listBean) {
 
             llLeft.removeAllViews();
             llRight.removeAllViews();

@@ -19,7 +19,6 @@ import com.wgheng.myapp.mgz.activity.MGZDetailActivity;
 import com.wgheng.myapp.mgz.adapter.MGZRecyclerAdapter;
 import com.wgheng.myapp.mgz.bean.MGZBean;
 import com.wgheng.myapp.shop.activity.WebActivity;
-import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,11 +71,6 @@ public class MGZFragment extends BaseFragment {
             @Override
             public View makeView() {
                 TextView tv = new TextView(getActivity());
-
-//                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-//                tv.setLayoutParams(params);
-//                params.topMargin = DensityUtil.dip2px(getActivity(), 0);
-//                params.bottomMargin = DensityUtil.dip2px(getActivity(), 0);
                 tv.setTextSize(15);
                 tv.setTextColor(Color.parseColor("#5e7fa3"));
                 return tv;
@@ -144,7 +138,7 @@ public class MGZFragment extends BaseFragment {
         //设置刷新样式
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        adapter.setOnItemClickListener(new ClassifyRecyclerAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new MGZRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
                 Intent intent = new Intent(getActivity(), WebActivity.class);

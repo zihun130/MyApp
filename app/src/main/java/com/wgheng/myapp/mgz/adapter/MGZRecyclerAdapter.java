@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.mgz.bean.MGZBean;
-import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
 
 import java.util.List;
 
@@ -82,13 +81,13 @@ public class MGZRecyclerAdapter extends RecyclerView.Adapter<MGZRecyclerAdapter.
         }
     }
 
-    private ClassifyRecyclerAdapter.OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener {
         void onItemClicked(View view, int layoutPosition);
     }
 
-    public void setOnItemClickListener(ClassifyRecyclerAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 }

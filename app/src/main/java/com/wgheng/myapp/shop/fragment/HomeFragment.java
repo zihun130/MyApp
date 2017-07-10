@@ -12,6 +12,7 @@ import com.wgheng.myapp.common.Constant;
 import com.wgheng.myapp.shop.adapter.HomeRecyclerAdapter;
 import com.wgheng.myapp.shop.bean.HomeBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,6 +26,7 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.recycler_view)
     XRecyclerView recyclerView;
     private HomeRecyclerAdapter adapter;
+    private List<HomeBean.DataBean.ItemsBean.ListBeanX> listBeans = new ArrayList<>();
 
     @Override
     protected View initView() {
@@ -34,6 +36,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
+        initRecyclerView();
     }
 
     @Override
@@ -45,12 +48,21 @@ public class HomeFragment extends BaseFragment {
     protected void processData(String s) {
         Log.d("tag", "processData: "+s);
         HomeBean homeBean = JSON.parseObject(s,HomeBean.class);
-        List<HomeBean.DataBean.ItemsBean.ListBean> listBeans = homeBean.getData().getItems().getList();
-        initRecyclerView(listBeans);
+        List<HomeBean.DataBean.ItemsBean.ListBeanX> listBeans = homeBean.getData().getItems().getList();
+        adapter.refresh(listBeans);
     }
 
-    private void initRecyclerView(List<HomeBean.DataBean.ItemsBean.ListBean> listBeen) {
-        adapter = new HomeRecyclerAdapter(getActivity(),listBeen);
+//    private void initRecyclerView(List<HomeBean.DataBean.ItemsBean.ListBean> listBeans) {
+//        adapter = new HomeRecyclerAdapter(getActivity(),listBeen);
+//        recyclerView.setAdapter(adapter);
+//        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+//        recyclerView.setLayoutManager(manager);
+//        recyclerView.setLoadingMoreEnabled(false);
+//        recyclerView.setPullRefreshEnabled(false);
+//    }
+
+    private void initRecyclerView() {
+        adapter = new HomeRecyclerAdapter(getActivity(),listBeans);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);

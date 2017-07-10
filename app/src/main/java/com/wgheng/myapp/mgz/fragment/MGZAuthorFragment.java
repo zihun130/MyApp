@@ -1,5 +1,6 @@
 package com.wgheng.myapp.mgz.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
 import com.wgheng.myapp.common.Constant;
+import com.wgheng.myapp.mgz.activity.MGZAuthorDetailActivity;
 import com.wgheng.myapp.mgz.adapter.AuthorRecyclerAdapter;
 import com.wgheng.myapp.mgz.bean.AuthorBean;
 import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
@@ -52,7 +54,7 @@ public class MGZAuthorFragment extends BaseFragment {
         initRecyclerView(itemsBeans);
     }
 
-    private void initRecyclerView(List<AuthorBean.DataBean.ItemsBean> itemsBeans) {
+    private void initRecyclerView(final List<AuthorBean.DataBean.ItemsBean> itemsBeans) {
         adapter = new AuthorRecyclerAdapter(getActivity(), itemsBeans);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -62,7 +64,13 @@ public class MGZAuthorFragment extends BaseFragment {
         adapter.setOnItemClickListener(new ClassifyRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-//                bundle.putString("url",urls[position - 1]);
+                String author_id = itemsBeans.get(position - 1).getAuthor_id();
+                Intent intent = new Intent(getActivity(), MGZAuthorDetailActivity.class);
+                intent.putExtra("author_id", author_id);
+                intent.putExtra("title", itemsBeans.get(position - 1).getAuthor_name());
+                startActivity(intent);
+                getActivity().finish();
+                getActivity().overridePendingTransition(R.anim.activity_in_alpha_0_1,R.anim.activity_out_top);
             }
         });
     }

@@ -88,8 +88,12 @@ public class MGZDetailActivity extends BaseActivity {
 
     @OnClick(R.id.ll_back)
     public void onClick() {
+        finishActivity();
+    }
+
+    public void finishActivity() {
         finish();
-        overridePendingTransition(R.anim.activity_in_alpha,R.anim.activity_out_top);
+        overridePendingTransition(R.anim.activity_in_alpha_1_1,R.anim.activity_out_top);
     }
 
 
