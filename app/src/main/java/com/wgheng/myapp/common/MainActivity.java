@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseActivity;
 import com.wgheng.myapp.dazen.fragment.DaRenFragment;
-import com.wgheng.myapp.mgz.MGZFragment;
+import com.wgheng.myapp.mgz.fragment.MGZFragment;
 import com.wgheng.myapp.self.SelfFragment;
 import com.wgheng.myapp.share.ShareFragment;
 import com.wgheng.myapp.shop.fragment.ShopFragment;

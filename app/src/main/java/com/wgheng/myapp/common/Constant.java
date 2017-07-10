@@ -96,4 +96,6 @@ public class Constant {
     public static final String MGZ_URL_PART1 = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=";
     public static final String MGZ_URL_PART2 = "&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
 
+    //作者
+    public static final String AUTHOR_URL ="http://mobile.iliangcang.com/topic/magazineAuthorList?app_key=Android&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
 }

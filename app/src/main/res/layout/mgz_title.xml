@@ -10,8 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:inAnimation="@anim/slide_in_bottom"
-        android:outAnimation="@anim/slide_out_top" />
+        android:inAnimation="@anim/text_in_bottom"
+        android:outAnimation="@anim/text_out_top" />
 
     <TextView
         android:id="@+id/tv_title"

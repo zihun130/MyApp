@@ -1,4 +1,4 @@
-package com.wgheng.myapp.mgz;
+package com.wgheng.myapp.mgz.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,8 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -17,11 +15,11 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
 import com.wgheng.myapp.common.Constant;
+import com.wgheng.myapp.mgz.activity.MGZDetailActivity;
 import com.wgheng.myapp.mgz.adapter.MGZRecyclerAdapter;
 import com.wgheng.myapp.mgz.bean.MGZBean;
 import com.wgheng.myapp.shop.activity.WebActivity;
 import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
-import com.wgheng.myapp.utils.DensityUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,6 +59,13 @@ public class MGZFragment extends BaseFragment {
         page = 1;
         super.initData();
         tvTitle.setText("杂志");
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MGZDetailActivity.class));
+                getActivity().overridePendingTransition(R.anim.activity_in_top,R.anim.activity_out_alpha);
+            }
+        });
 
         tsMonth.setFactory(new ViewSwitcher.ViewFactory() {
 
@@ -68,10 +73,10 @@ public class MGZFragment extends BaseFragment {
             public View makeView() {
                 TextView tv = new TextView(getActivity());
 
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                tv.setLayoutParams(params);
-                params.topMargin = DensityUtil.dip2px(getActivity(), 5);
-                params.bottomMargin = DensityUtil.dip2px(getActivity(), 5);
+//                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+//                tv.setLayoutParams(params);
+//                params.topMargin = DensityUtil.dip2px(getActivity(), 0);
+//                params.bottomMargin = DensityUtil.dip2px(getActivity(), 0);
                 tv.setTextSize(15);
                 tv.setTextColor(Color.parseColor("#5e7fa3"));
                 return tv;
@@ -110,7 +115,6 @@ public class MGZFragment extends BaseFragment {
                     mgzBean.setMonthInfo(keys.get(i) + "");
                     mgzBeans.add(mgzBean);
                 }
-
             }
 
         } catch (JSONException e) {
