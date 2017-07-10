@@ -5,12 +5,13 @@
     android:background="#15171a"
     android:padding="10dp">
 
-    <com.wgheng.verticalswitchtextview.VerticalSwitchTextView
-        android:id="@+id/tv_month"
+    <TextSwitcher
+        android:id="@+id/ts_month"
         android:layout_width="wrap_content"
-        android:textColor="#5e7fa3"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:layout_height="wrap_content" />
+        android:inAnimation="@anim/slide_in_bottom"
+        android:outAnimation="@anim/slide_out_top" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -21,12 +22,12 @@
         android:textSize="15sp" />
 
     <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/tv_title"
-        android:layout_centerVertical="true"
-        android:id="@+id/iv_arrow"
-        android:src="@drawable/mgz_arrow"
-        android:layout_width="10dp"
-        android:layout_height="10dp" />
+        android:src="@drawable/mgz_arrow" />
 
 </RelativeLayout>

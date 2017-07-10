@@ -3,9 +3,14 @@ package com.wgheng.myapp.mgz;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -16,7 +21,7 @@ import com.wgheng.myapp.mgz.adapter.MGZRecyclerAdapter;
 import com.wgheng.myapp.mgz.bean.MGZBean;
 import com.wgheng.myapp.shop.activity.WebActivity;
 import com.wgheng.myapp.shop.adapter.ClassifyRecyclerAdapter;
-import com.wgheng.verticalswitchtextview.VerticalSwitchTextView;
+import com.wgheng.myapp.utils.DensityUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,14 +39,15 @@ import butterknife.BindView;
 public class MGZFragment extends BaseFragment {
     @BindView(R.id.recycler_view)
     XRecyclerView recyclerView;
-    @BindView(R.id.tv_month)
-    VerticalSwitchTextView tvMonth;
+    @BindView(R.id.ts_month)
+    TextSwitcher tsMonth;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     private MGZRecyclerAdapter adapter;
     private List<MGZBean> mgzBeans;
     private boolean isLoadMore = false;
     private int page = 1;
+    private int currentPosition = 0;
 
     @Override
     protected View initView() {
@@ -55,11 +61,23 @@ public class MGZFragment extends BaseFragment {
         page = 1;
         super.initData();
         tvTitle.setText("杂志");
-//        List<String> strings = new ArrayList<>();
-//        strings.add("ewttw");
-//        strings.add("adfafdf");
-//        strings.add("dfnukl");
-//        tvMonth.setTextContent(strings);
+
+        tsMonth.setFactory(new ViewSwitcher.ViewFactory() {
+
+            @Override
+            public View makeView() {
+                TextView tv = new TextView(getActivity());
+
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                tv.setLayoutParams(params);
+                params.topMargin = DensityUtil.dip2px(getActivity(), 5);
+                params.bottomMargin = DensityUtil.dip2px(getActivity(), 5);
+              //  tv.setPadding(0, DensityUtil.dip2px(getActivity(),5),0,DensityUtil.dip2px(getActivity(),5));
+                tv.setTextSize(15);
+                tv.setTextColor(Color.parseColor("#5e7fa3"));
+                return tv;
+            }
+        });
 
     }
 
@@ -100,6 +118,7 @@ public class MGZFragment extends BaseFragment {
             e.printStackTrace();
         }
         Log.d("TAG", "processData: " + mgzBeans.toString());
+        tsMonth.setText(mgzBeans.get(0).getMonthInfo().substring(5));
 
         if (!isLoadMore) {
             initRecyclerView();
@@ -115,7 +134,8 @@ public class MGZFragment extends BaseFragment {
     private void initRecyclerView() {
         adapter = new MGZRecyclerAdapter(getActivity(), mgzBeans);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(manager);
         recyclerView.setLoadingListener(new LoadingListener());
 
         //设置刷新样式
@@ -130,6 +150,23 @@ public class MGZFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int position = manager.findFirstVisibleItemPosition();
+
+                if (currentPosition != position) {
+                    String text = mgzBeans.get(position).getMonthInfo();
+                    tsMonth.setText(text.substring(5));
+                }
+
+                currentPosition = position;
+            }
+        });
+
+
     }
 
     class LoadingListener implements XRecyclerView.LoadingListener {
