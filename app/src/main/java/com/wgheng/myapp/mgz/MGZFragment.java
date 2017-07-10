@@ -72,7 +72,6 @@ public class MGZFragment extends BaseFragment {
                 tv.setLayoutParams(params);
                 params.topMargin = DensityUtil.dip2px(getActivity(), 5);
                 params.bottomMargin = DensityUtil.dip2px(getActivity(), 5);
-              //  tv.setPadding(0, DensityUtil.dip2px(getActivity(),5),0,DensityUtil.dip2px(getActivity(),5));
                 tv.setTextSize(15);
                 tv.setTextColor(Color.parseColor("#5e7fa3"));
                 return tv;

@@ -39,11 +39,20 @@ public class MGZRecyclerAdapter extends RecyclerView.Adapter<MGZRecyclerAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        MGZBean itemsBean = mgzBeans.get(position);
-        holder.tvTopicName.setText(itemsBean.getTopic_name());
-        holder.tvCatName.setText("— "+itemsBean.getCat_name()+" —");
-        holder.tvMonth.setText("— " + itemsBean.getMonthInfo() + " —");
-        Glide.with(context).load(itemsBean.getCover_img()).into(holder.iv);
+        MGZBean mgzBean = mgzBeans.get(position);
+        holder.tvTopicName.setText(mgzBean.getTopic_name());
+        holder.tvCatName.setText("— "+mgzBean.getCat_name()+" —");
+
+        MGZBean mgzBeanNext = mgzBeans.get(position + 1);
+        String monthInfoNext = mgzBeanNext.getMonthInfo();
+        String monthInfo = mgzBean.getMonthInfo();
+        if (monthInfo.equals(monthInfoNext)) {
+            holder.tvMonth.setVisibility(View.GONE);
+        } else {
+            holder.tvMonth.setVisibility(View.VISIBLE);
+        }
+        holder.tvMonth.setText("— " + mgzBean.getMonthInfo().substring(5) + " —");
+        Glide.with(context).load(mgzBean.getCover_img()).into(holder.iv);
     }
 
     @Override
