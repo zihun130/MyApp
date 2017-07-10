@@ -102,6 +102,8 @@ public class MGZAuthorDetailActivity extends BaseActivity {
 
             }
         });
+        recyclerView.setLoadingMoreEnabled(false);
+        recyclerView.setPullRefreshEnabled(false);
     }
 
 

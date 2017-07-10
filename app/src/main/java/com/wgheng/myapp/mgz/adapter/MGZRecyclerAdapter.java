@@ -40,15 +40,18 @@ public class MGZRecyclerAdapter extends RecyclerView.Adapter<MGZRecyclerAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         MGZBean mgzBean = mgzBeans.get(position);
         holder.tvTopicName.setText(mgzBean.getTopic_name());
-        holder.tvCatName.setText("— "+mgzBean.getCat_name()+" —");
+        holder.tvCatName.setText("— " + mgzBean.getCat_name() + " —");
 
-        MGZBean mgzBeanNext = mgzBeans.get(position + 1);
-        String monthInfoNext = mgzBeanNext.getMonthInfo();
-        String monthInfo = mgzBean.getMonthInfo();
-        if (monthInfo.equals(monthInfoNext)) {
-            holder.tvMonth.setVisibility(View.GONE);
-        } else {
-            holder.tvMonth.setVisibility(View.VISIBLE);
+        MGZBean mgzBeanNext = null;
+        if (position < mgzBeans.size() - 1) {
+            mgzBeanNext = mgzBeans.get(position + 1);
+            String monthInfoNext = mgzBeanNext.getMonthInfo();
+            String monthInfo = mgzBean.getMonthInfo();
+            if (monthInfo.equals(monthInfoNext)) {
+                holder.tvMonth.setVisibility(View.GONE);
+            } else {
+                holder.tvMonth.setVisibility(View.VISIBLE);
+            }
         }
         holder.tvMonth.setText("— " + mgzBean.getMonthInfo().substring(5) + " —");
         Glide.with(context).load(mgzBean.getCover_img()).into(holder.iv);
@@ -75,7 +78,7 @@ public class MGZRecyclerAdapter extends RecyclerView.Adapter<MGZRecyclerAdapter.
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onItemClicked(view,getLayoutPosition());
+                    onItemClickListener.onItemClicked(view, getLayoutPosition());
                 }
             });
         }
