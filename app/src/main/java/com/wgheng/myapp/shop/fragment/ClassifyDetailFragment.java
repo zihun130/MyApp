@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
+import com.wgheng.myapp.common.MainActivity;
 import com.wgheng.myapp.shop.activity.GoodsActivity;
 import com.wgheng.myapp.shop.adapter.ClassifyDetailRecyclerAdapter;
 import com.wgheng.myapp.shop.bean.ClassifyDetailBean;
@@ -89,6 +90,7 @@ public class ClassifyDetailFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.iv_back:
                 getActivity().getSupportFragmentManager().popBackStack();
+                ((MainActivity) getActivity()).fragments.remove(5);
                 break;
             case R.id.ll_price_filter:
                 Toast.makeText(getActivity(), "筛选", Toast.LENGTH_SHORT).show();

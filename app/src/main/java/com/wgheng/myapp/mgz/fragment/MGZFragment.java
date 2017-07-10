@@ -62,7 +62,7 @@ public class MGZFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), MGZDetailActivity.class));
-                getActivity().overridePendingTransition(R.anim.activity_in_top,R.anim.activity_out_alpha);
+                getActivity().overridePendingTransition(R.anim.activity_in_top, R.anim.activity_out_alpha);
             }
         });
 
@@ -76,6 +76,7 @@ public class MGZFragment extends BaseFragment {
                 return tv;
             }
         });
+        tsMonth.setText("Today");
 
     }
 
@@ -115,7 +116,6 @@ public class MGZFragment extends BaseFragment {
             e.printStackTrace();
         }
         Log.d("TAG", "processData: " + mgzBeans.toString());
-        tsMonth.setText(mgzBeans.get(0).getMonthInfo().substring(5));
 
         if (!isLoadMore) {
             initRecyclerView();
@@ -154,12 +154,12 @@ public class MGZFragment extends BaseFragment {
                 super.onScrollStateChanged(recyclerView, newState);
                 int position = manager.findFirstVisibleItemPosition();
 
-                if (currentPosition != position) {
-                    String text = mgzBeans.get(position).getMonthInfo();
+                if (currentPosition != position && position <= mgzBeans.size() - 1) {
+                    String text = mgzBeans.get(position - 1).getMonthInfo();
                     tsMonth.setText(text.substring(5));
+                    currentPosition = position;
                 }
 
-                currentPosition = position;
             }
         });
 

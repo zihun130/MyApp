@@ -1,19 +1,20 @@
 package com.wgheng.myapp.shop.fragment;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.support.v4.app.FragmentTransaction;
+        import android.view.View;
+        import android.widget.ImageView;
+        import android.widget.LinearLayout;
 
-import com.wgheng.myapp.R;
-import com.wgheng.myapp.base.BaseFragment;
-import com.wgheng.myapp.common.Constant;
-import com.wgheng.myapp.common.LoginActivity;
+        import com.wgheng.myapp.R;
+        import com.wgheng.myapp.base.BaseFragment;
+        import com.wgheng.myapp.common.Constant;
+        import com.wgheng.myapp.common.LoginActivity;
+        import com.wgheng.myapp.common.MainActivity;
 
-import butterknife.BindView;
-import butterknife.OnClick;
+        import butterknife.BindView;
+        import butterknife.OnClick;
 
 /**
  * Created by wgheng on 2017/7/5.
@@ -82,8 +83,11 @@ public class GiftFragment extends BaseFragment {
             ClassifyDetailFragment classifyDetailFragment = new ClassifyDetailFragment();
             classifyDetailFragment.setArguments(bundle);
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.fl_main, classifyDetailFragment).addToBackStack(null).commit();
+            ft.setCustomAnimations(R.anim.activity_in_right, R.anim.activity_out_left,R.anim.activity_in_left, R.anim.activity_out_right);
+            ft.add(R.id.fl_main, classifyDetailFragment);
+            ft.hide(getActivity().getSupportFragmentManager().findFragmentByTag("fragment0"));
+            ft.addToBackStack(null).commit();
+            ((MainActivity) getActivity()).fragments.add(classifyDetailFragment);
         }
-
     }
 }

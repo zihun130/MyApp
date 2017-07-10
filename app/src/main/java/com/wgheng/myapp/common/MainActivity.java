@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
     FrameLayout flMain;
     @BindView(R.id.rg_main)
     RadioGroup rgMain;
-    private List<Fragment> fragments;
+    public List<Fragment> fragments;
     private int position;
     private Fragment tempFragment;
     private boolean isExit = false;
@@ -62,8 +62,17 @@ public class MainActivity extends BaseActivity {
                         position = 4;
                         break;
                 }
+
                 Fragment fragment = fragments.get(position);
                 switchFragment(fragment);
+                if (fragments.size() - 1 >= 5) {
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    if (position != 0) {
+                        ft.hide(fragments.get(5)).commit();
+                    } else {
+                        ft.show(fragments.get(5)).commit();
+                    }
+                }
             }
         });
     }
@@ -75,7 +84,7 @@ public class MainActivity extends BaseActivity {
             if (fragment.isAdded()) {
                 ft.show(fragment);
             } else {
-                ft.add(R.id.fl_main, fragment);
+                ft.add(R.id.fl_main, fragment,"fragment"+position);
             }
 
             if (tempFragment != null) {
@@ -110,7 +119,8 @@ public class MainActivity extends BaseActivity {
 
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if(isPopped) {
+            if (isPopped) {
+                fragments.remove(5);
                 return true;
             }
 

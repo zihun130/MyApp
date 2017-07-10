@@ -1,6 +1,7 @@
 package com.wgheng.myapp.mgz.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class MGZAuthorDetailActivity extends BaseActivity {
         super.initData();
         String title = getIntent().getStringExtra("title");
         tvTitle.setText("杂志·" + title);
+        ivBack.setVisibility(View.VISIBLE);
         ivArrow.setVisibility(View.VISIBLE);
     }
 
@@ -109,6 +111,20 @@ public class MGZAuthorDetailActivity extends BaseActivity {
 
     @OnClick(R.id.iv_back)
     public void onClick() {
-
+        finish();
+        overridePendingTransition(R.anim.activity_in_left, R.anim.activity_out_right);
     }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            overridePendingTransition(R.anim.activity_in_left, R.anim.activity_out_right);
+            return true;
+        }
+
+        return super.onKeyUp(keyCode, event);
+    }
+
 }
