@@ -1,6 +1,7 @@
 package com.wgheng.myapp.shop.activity;
 
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -142,6 +143,7 @@ public class BuyActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
+                finishActivity();
                 break;
             case R.id.tv_confirm:
                 break;
@@ -150,5 +152,20 @@ public class BuyActivity extends BaseActivity {
             case R.id.tv_buy:
                 break;
         }
+    }
+
+    private void finishActivity() {
+        finish();
+        overridePendingTransition(R.anim.activity_in_alpha_0_1, R.anim.activity_out_bottom);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finishActivity();
+            return true;
+        }
+
+        return super.onKeyUp(keyCode, event);
     }
 }

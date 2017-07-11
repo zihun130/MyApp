@@ -257,6 +257,7 @@ public class GoodsActivity extends BaseActivity {
         Intent intent = new Intent(this, BuyActivity.class);
         intent.putExtra("buy_bean", buyBean);
         startActivity(intent);
+        overridePendingTransition(R.anim.activity_in_bottom,R.anim.activity_in_alpha_1_1);
 
     }
 

@@ -29,7 +29,9 @@
         <activity android:name=".dazen.activity.DarenDetailActivity" />
         <activity android:name=".mgz.activity.MGZDetailActivity" />
         <activity android:name=".mgz.activity.MGZAuthorDetailActivity" />
-        <activity android:name=".shop.activity.BuyActivity"></activity>
+        <activity
+            android:name=".shop.activity.BuyActivity"
+            android:theme="@style/TransparentTheme" />
     </application>
 
 </manifest>
