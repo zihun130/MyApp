@@ -1,5 +1,6 @@
 package com.wgheng.myapp.shop.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -544,7 +545,7 @@ public class GoodsBean {
                 }
             }
 
-            public static class GoodGuideBean {
+            public static class GoodGuideBean implements Serializable{
                 /**
                  * title : 购物指南
                  * content : 所有商品均为正品保证。
@@ -573,7 +574,7 @@ public class GoodsBean {
                 }
             }
 
-            public static class SkuInfoBean {
+            public static class SkuInfoBean implements Serializable{
                 /**
                  * type_id : 1
                  * type_name : 颜色
@@ -618,7 +619,7 @@ public class GoodsBean {
                     this.attrList = attrList;
                 }
 
-                public static class AttrListBean {
+                public static class AttrListBean implements Serializable{
                     /**
                      * attr_id : 0
                      * attr_name : 银色
@@ -655,7 +656,7 @@ public class GoodsBean {
                 }
             }
 
-            public static class SkuInvBean {
+            public static class SkuInvBean implements Serializable{
                 /**
                  * goods_sku_sn : 0101000000000000034230000100000000000000000000000000000000000000
                  * type_keys : 1
@@ -721,7 +722,7 @@ public class GoodsBean {
                 }
             }
 
-            public static class GoodsInfoBean {
+            public static class GoodsInfoBean implements Serializable{
                 /**
                  * type : 1
                  * content : {"img":"http://imgs-qn.iliangcang.com//ware/ueditor/image/20170503/1493797691419657.jpg","width":1000,"height":1660,"length":79}

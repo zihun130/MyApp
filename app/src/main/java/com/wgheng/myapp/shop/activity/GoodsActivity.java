@@ -1,6 +1,7 @@
 package com.wgheng.myapp.shop.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.IdRes;
 import android.text.TextUtils;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseActivity;
 import com.wgheng.myapp.common.Constant;
+import com.wgheng.myapp.shop.bean.BuyBean;
 import com.wgheng.myapp.shop.bean.GoodsBean;
 import com.wgheng.myapp.view.PullUpToLoadMore;
 import com.youth.banner.Banner;
@@ -35,7 +37,7 @@ public class GoodsActivity extends BaseActivity {
     Banner banner;
     @BindView(R.id.tv_brand_name1)
     TextView tvBrandName1;
-    @BindView(R.id.tv_good_name)
+    @BindView(R.id.tv_brand_name)
     TextView tvGoodName;
     @BindView(R.id.iv_like)
     ImageView ivLike;
@@ -73,7 +75,7 @@ public class GoodsActivity extends BaseActivity {
     LinearLayout llBuyTips;
     @BindView(R.id.ll_image_container)
     LinearLayout llImageContainer;
-    @BindView(R.id.tv_good_desc)
+    @BindView(R.id.tv_good_name)
     TextView tvGoodDesc;
     @BindView(R.id.tv_brand_name3)
     TextView tvBrandName3;
@@ -97,6 +99,7 @@ public class GoodsActivity extends BaseActivity {
     LinearLayout llGoodDetail;
     @BindView(R.id.tv_brand_name2)
     TextView tvBrandName2;
+    private GoodsBean.DataBean.ItemsBean itemsBean;
 
     @Override
     public int getLayoutId() {
@@ -138,7 +141,7 @@ public class GoodsActivity extends BaseActivity {
     protected void processData(String json) {
         Log.d("tag", "processData:goods " + json);
         GoodsBean goodsInfoBean = JSON.parseObject(json, GoodsBean.class);
-        GoodsBean.DataBean.ItemsBean itemsBean = goodsInfoBean.getData().getItems();
+        itemsBean = goodsInfoBean.getData().getItems();
 
         setPagerData(itemsBean);
 
@@ -148,20 +151,24 @@ public class GoodsActivity extends BaseActivity {
 
     private void setDetails(GoodsBean.DataBean.ItemsBean itemsBean) {
         List<GoodsBean.DataBean.ItemsBean.GoodsInfoBean> goodsInfoBeans = itemsBean.getGoods_info();
-        for(int i = 0; i < goodsInfoBeans.size(); i++) {
+        for (int i = 0; i < goodsInfoBeans.size(); i++) {
             if (goodsInfoBeans.get(i).getType() == 1) {
+
                 ImageView imageView = new ImageView(this);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 imageView.setLayoutParams(params);
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 Glide.with(this).load(goodsInfoBeans.get(i).getContent().getImg()).into(imageView);
                 llImageContainer.addView(imageView);
+
             } else {
+
                 TextView textView = new TextView(this);
                 textView.setText(goodsInfoBeans.get(i).getContent().getText());
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 params.bottomMargin = 30;
                 textView.setLayoutParams(params);
+
                 if (goodsInfoBeans.get(i).getType() == 2) {
                     textView.setTextSize(15);
                     textView.setTextColor(Color.WHITE);
@@ -179,10 +186,10 @@ public class GoodsActivity extends BaseActivity {
                 .setImages(itemsBean.getImages_item())
                 .start();
         if (!TextUtils.isEmpty(itemsBean.getDiscount_price())) {
-            tvRealPrice.setText("￥"+itemsBean.getDiscount_price());
-            tvOriginPrice.setText("￥"+itemsBean.getPrice());
+            tvRealPrice.setText("￥" + itemsBean.getDiscount_price());
+            tvOriginPrice.setText("￥" + itemsBean.getPrice());
         } else {
-            tvRealPrice.setText("￥"+itemsBean.getPrice());
+            tvRealPrice.setText("￥" + itemsBean.getPrice());
             flOriginPrice.setVisibility(View.GONE);
         }
         tvBrandName1.setText(itemsBean.getBrand_info().getBrand_name());
@@ -198,12 +205,19 @@ public class GoodsActivity extends BaseActivity {
         tvGoodDesc.setText(itemsBean.getGoods_desc());
     }
 
-    @OnClick({R.id.iv_like, R.id.tv_choose_size, R.id.tv_after_sale_tips, R.id.iv_back, R.id.iv_cart, R.id.iv_call_center, R.id.tv_add_cart, R.id.tv_just_buy})
+    @OnClick({R.id.ll_brand_detail, R.id.iv_like, R.id.tv_choose_size, R.id.tv_after_sale_tips, R.id.iv_back, R.id.iv_cart, R.id.iv_call_center, R.id.tv_add_cart, R.id.tv_just_buy})
     public void onClick(View view) {
+
         switch (view.getId()) {
+            case R.id.ll_brand_detail:
+                Intent intent = new Intent(this, BrandDetailActivity.class);
+                intent.putExtra("brand_id", itemsBean.getBrand_info().getBrand_id());
+                startActivity(intent);
+                break;
             case R.id.iv_like:
                 break;
             case R.id.tv_choose_size:
+                startBuyActivity("choose");
                 break;
             case R.id.tv_after_sale_tips:
                 break;
@@ -213,10 +227,37 @@ public class GoodsActivity extends BaseActivity {
             case R.id.iv_call_center:
                 break;
             case R.id.tv_add_cart:
+                startBuyActivity("add");
+
                 break;
             case R.id.tv_just_buy:
+                startBuyActivity("buy");
+
                 break;
         }
+    }
+
+    private void startBuyActivity(String tag) {
+
+        List<GoodsBean.DataBean.ItemsBean.SkuInfoBean> skuInfoBeans = itemsBean.getSku_info();
+
+        BuyBean buyBean = new BuyBean();
+        buyBean.setTag(tag);
+        buyBean.setBrand(itemsBean.getBrand_info().getBrand_name());
+        buyBean.setName(itemsBean.getGoods_name());
+        buyBean.setDefaultImage(itemsBean.getGoods_image());
+        buyBean.setSkuInfoBeans(skuInfoBeans);
+
+        if (!TextUtils.isEmpty(itemsBean.getDiscount_price())) {
+            buyBean.setPrice(itemsBean.getDiscount_price());
+        } else {
+            buyBean.setPrice(itemsBean.getPrice());
+        }
+
+        Intent intent = new Intent(this, BuyActivity.class);
+        intent.putExtra("buy_bean", buyBean);
+        startActivity(intent);
+
     }
 
     private class GlideImageLoader extends ImageLoader {

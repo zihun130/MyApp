@@ -28,7 +28,8 @@
         <activity android:name=".shop.activity.GoodsActivity" />
         <activity android:name=".dazen.activity.DarenDetailActivity" />
         <activity android:name=".mgz.activity.MGZDetailActivity" />
-        <activity android:name=".mgz.activity.MGZAuthorDetailActivity"></activity>
+        <activity android:name=".mgz.activity.MGZAuthorDetailActivity" />
+        <activity android:name=".shop.activity.BuyActivity"></activity>
     </application>
 
 </manifest>
