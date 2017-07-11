@@ -13,6 +13,24 @@ public class BuyBean implements Serializable {
     private String brand;
     private String name;
     private String price;
+    private String originPrice;
+    private String goodsPath;
+
+    public String getOriginPrice() {
+        return originPrice;
+    }
+
+    public void setOriginPrice(String originPrice) {
+        this.originPrice = originPrice;
+    }
+
+    public String getGoodsPath() {
+        return goodsPath;
+    }
+
+    public void setGoodsPath(String goodsPath) {
+        this.goodsPath = goodsPath;
+    }
 
     public String getDefaultImage() {
         return defaultImage;

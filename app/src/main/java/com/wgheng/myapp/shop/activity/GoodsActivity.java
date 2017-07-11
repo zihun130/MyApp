@@ -33,6 +33,9 @@ import butterknife.OnClick;
 
 public class GoodsActivity extends BaseActivity {
 
+    public static final String CHOOSE = "choose";
+    public static final String ADD = "add";
+    public static final String BUY = "buy";
     @BindView(R.id.banner)
     Banner banner;
     @BindView(R.id.tv_brand_name1)
@@ -217,21 +220,23 @@ public class GoodsActivity extends BaseActivity {
             case R.id.iv_like:
                 break;
             case R.id.tv_choose_size:
-                startBuyActivity("choose");
+                startBuyActivity(CHOOSE);
                 break;
             case R.id.tv_after_sale_tips:
                 break;
             case R.id.iv_back:
                 finish();
+            case R.id.iv_cart:
+                startActivity(new Intent(this,CartActivity.class));
                 break;
             case R.id.iv_call_center:
                 break;
             case R.id.tv_add_cart:
-                startBuyActivity("add");
+                startBuyActivity(ADD);
 
                 break;
             case R.id.tv_just_buy:
-                startBuyActivity("buy");
+                startBuyActivity(BUY);
 
                 break;
         }
@@ -247,10 +252,13 @@ public class GoodsActivity extends BaseActivity {
         buyBean.setName(itemsBean.getGoods_name());
         buyBean.setDefaultImage(itemsBean.getGoods_image());
         buyBean.setSkuInfoBeans(skuInfoBeans);
+        buyBean.setGoodsPath(itemsBean.getGoods_url());
 
         if (!TextUtils.isEmpty(itemsBean.getDiscount_price())) {
             buyBean.setPrice(itemsBean.getDiscount_price());
+            buyBean.setOriginPrice(itemsBean.getPrice());
         } else {
+            buyBean.setOriginPrice(itemsBean.getPrice());
             buyBean.setPrice(itemsBean.getPrice());
         }
 
