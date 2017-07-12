@@ -65,7 +65,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         if (CartActivity.isEdit) {
             holder.tvDelete.setVisibility(View.VISIBLE);
             holder.addSubView.setVisibility(View.VISIBLE);
-            holder.addSubView.setValue(Integer.parseInt(cartBean.getCount()));
+            holder.addSubView.setValue(cartBean.getCount());
 
             holder.tvGoodsType.setVisibility(View.GONE);
             holder.tvOriginPrice.setVisibility(View.GONE);
@@ -104,23 +104,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         }
         holder.tvGoodsType.setText(sb.toString());
 
-        setListener(holder, cartBean);
+        setListener(holder, position);
 
     }
 
-    private void setListener(final ViewHolder holder, final CartBean cartBean) {
+    private void setListener(final ViewHolder holder, final int position) {
+
+        final CartBean cartBean = CartDataHelper.getInstance().getCartBeans().get(position);
+
         //数量加减的监听
         holder.addSubView.setOnNumberChangedListener(new AddSubView.OnNumberChangedListener() {
             @Override
             public void onOnNumberChanged(int value) {
-                //更新内存
-                cartBean.setCount(value + "");
+                //更新内存及数据库数据
+                CartDataHelper.getInstance().updateData(position,value);
                 //更新UI:数量
-                holder.tvCount.setText(cartBean.getCount());
+                holder.tvCount.setText(cartBean.getCount()+"");
                 //更新UI：总价格（检测是否选中）
                 cartActivity.computeTotalPrice();
-                //更新数据库
-                CartDataHelper.getInstance().updateDB(cartBean);
             }
         });
 
@@ -128,7 +129,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.cbItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d("tag", "onCheckedChanged: "+isChecked);
+                Log.d("tag", "onCheckedChanged: " + isChecked);
                 //更新内存
                 cartBean.setChecked(isChecked);
                 //更新UI：总价
@@ -147,36 +148,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //更新内存
-                                cartBeans.remove(cartBean);
+                                //更新内存及数据库数据
+                                CartDataHelper.getInstance().removeData(cartBean);
                                 //更新UI
                                 notifyDataSetChanged();
                                 cartActivity.checkAll();
                                 //更新UI：价格
                                 cartActivity.computeTotalPrice();
-                                //更新数据库
 
                             }
                         }).show();
             }
         });
     }
-
-//    public void updateTotalPrice() {
-//        List<CartBean> cartBeans = CartDataHelper.getInstance().getCartBeans();
-//        double price = 0;
-//        double originPrice = 0;
-//        for (int i = 0; i < cartBeans.size(); i++) {
-//            CartBean cartBean = cartBeans.get(i);
-//            if (cartBean.isChecked()) {
-//                price += Double.parseDouble(cartBean.getPrice()) * Double.parseDouble(cartBean.getCount());
-//                originPrice += Double.parseDouble(cartBean.getOriginPrice()) * Double.parseDouble(cartBean.getCount());
-//            }
-//        }
-//        //设置视图数据
-//        ((CartActivity) context).updateTotalPrice(price, originPrice - price);
-//    }
-
 
     @Override
     public int getItemCount() {

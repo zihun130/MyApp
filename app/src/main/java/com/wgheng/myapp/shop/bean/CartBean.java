@@ -14,11 +14,20 @@ public class CartBean implements Serializable{
     private String goodsName;
     private String price;
     private String originPrice;
-    private String count;
+    private int count;
+//    private String count;
     private String imagePath;
     private String GoodsPath;
     private HashMap<String, String> types;
     private boolean isChecked = true;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public boolean isChecked() {
         return isChecked;
@@ -60,13 +69,13 @@ public class CartBean implements Serializable{
         this.key = key;
     }
 
-    public String getCount() {
-        return count;
-    }
-
-    public void setCount(String count) {
-        this.count = count;
-    }
+//    public String getCount() {
+//        return count;
+//    }
+//
+//    public void setCount(String count) {
+//        this.count = count;
+//    }
 
     public String getImagePath() {
         return imagePath;

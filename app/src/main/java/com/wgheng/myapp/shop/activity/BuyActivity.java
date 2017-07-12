@@ -217,7 +217,7 @@ public class BuyActivity extends BaseActivity {
 
         cartBean.setGoodsName(buyBean.getName());
         cartBean.setPrice(buyBean.getPrice());
-        cartBean.setCount(count + "");
+        cartBean.setCount(count);
         cartBean.setImagePath(imagePath);
         cartBean.setGoodsPath(buyBean.getGoodsPath());
         cartBean.setOriginPrice(buyBean.getOriginPrice());
@@ -236,9 +236,7 @@ public class BuyActivity extends BaseActivity {
         cartBean.setTypes(types);
 
         //添加到购物车数据集合中
-        CartDataHelper.getInstance().getCartBeans().add(cartBean);
-        //添加数据到数据库
-        CartDataHelper.getInstance().addToDB(cartBean);
+        CartDataHelper.getInstance().addData(cartBean);
         Toast.makeText(BuyActivity.this, "添加到购物车", Toast.LENGTH_SHORT).show();
         finishActivity();
     }

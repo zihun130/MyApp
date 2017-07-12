@@ -88,6 +88,8 @@ public class CartActivity extends BaseActivity {
                 isEdit = !isEdit;
                 setCheckedStatus(false);
                 adapter.notifyDataSetChanged();
+                checkAll();
+                computeTotalPrice();
                 break;
             case R.id.tv_complete:
                 tvEdit.setVisibility(View.VISIBLE);
@@ -95,6 +97,8 @@ public class CartActivity extends BaseActivity {
                 isEdit = !isEdit;
                 setCheckedStatus(true);
                 adapter.notifyDataSetChanged();
+                checkAll();
+                computeTotalPrice();
                 break;
             case R.id.cb_check_all:
                 isCheckAll = !isCheckAll;
@@ -117,8 +121,8 @@ public class CartActivity extends BaseActivity {
         for (int i = 0; i < cartBeans.size(); i++) {
             CartBean cartBean = cartBeans.get(i);
             if (cartBean.isChecked()) {
-                price += Double.parseDouble(cartBean.getPrice()) * Double.parseDouble(cartBean.getCount());
-                originPrice += Double.parseDouble(cartBean.getOriginPrice()) * Double.parseDouble(cartBean.getCount());
+                price += Double.parseDouble(cartBean.getPrice()) * cartBean.getCount();
+                originPrice += Double.parseDouble(cartBean.getOriginPrice()) * cartBean.getCount();
             }
         }
         //设置视图数据
@@ -135,7 +139,6 @@ public class CartActivity extends BaseActivity {
             tvSavingMoney.setVisibility(View.VISIBLE);
         } else {
             tvSavingMoney.setVisibility(View.GONE);
-
         }
     }
 
