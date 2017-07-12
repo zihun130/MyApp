@@ -1,5 +1,6 @@
 package com.wgheng.myapp.shop.fragment;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wgheng.myapp.R;
+import com.wgheng.myapp.shop.activity.CartActivity;
 import com.wgheng.myapp.shop.adapter.ShopPagerAdapter;
 import com.wgheng.myapp.base.BaseFragment;
 
@@ -73,7 +75,7 @@ public class ShopFragment extends BaseFragment {
                 Toast.makeText(getActivity(), "搜索", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_cart:
-                Toast.makeText(getActivity(), "购物车", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), CartActivity.class));
                 break;
         }
     }

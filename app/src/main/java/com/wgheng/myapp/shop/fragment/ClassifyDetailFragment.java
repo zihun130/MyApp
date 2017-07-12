@@ -15,6 +15,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseFragment;
 import com.wgheng.myapp.common.MainActivity;
+import com.wgheng.myapp.shop.activity.CartActivity;
 import com.wgheng.myapp.shop.activity.GoodsActivity;
 import com.wgheng.myapp.shop.adapter.ClassifyDetailRecyclerAdapter;
 import com.wgheng.myapp.shop.bean.ClassifyDetailBean;
@@ -85,7 +86,7 @@ public class ClassifyDetailFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.iv_back, R.id.ll_price_filter})
+    @OnClick({R.id.iv_back, R.id.ll_price_filter,R.id.iv_cart})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -94,6 +95,9 @@ public class ClassifyDetailFragment extends BaseFragment {
                 break;
             case R.id.ll_price_filter:
                 Toast.makeText(getActivity(), "筛选", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.iv_cart:
+                startActivity(new Intent(getActivity(), CartActivity.class));
                 break;
         }
     }

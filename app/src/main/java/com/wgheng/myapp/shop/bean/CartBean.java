@@ -15,9 +15,8 @@ public class CartBean implements Serializable{
     private String price;
     private String originPrice;
     private int count;
-//    private String count;
     private String imagePath;
-    private String GoodsPath;
+    private String goodsPath;
     private HashMap<String, String> types;
     private boolean isChecked = true;
 
@@ -46,11 +45,11 @@ public class CartBean implements Serializable{
     }
 
     public String getGoodsPath() {
-        return GoodsPath;
+        return goodsPath;
     }
 
     public void setGoodsPath(String goodsPath) {
-        GoodsPath = goodsPath;
+        this.goodsPath = goodsPath;
     }
 
     public HashMap<String, String> getTypes() {
@@ -68,14 +67,6 @@ public class CartBean implements Serializable{
     public void setKey(String key) {
         this.key = key;
     }
-
-//    public String getCount() {
-//        return count;
-//    }
-//
-//    public void setCount(String count) {
-//        this.count = count;
-//    }
 
     public String getImagePath() {
         return imagePath;

@@ -2,6 +2,7 @@ package com.wgheng.myapp.common;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 /**
  * Created by wgheng on 2017/7/7.
@@ -13,8 +14,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d("dbhelper", "onCreate: ");
         context = getApplicationContext();
-        CartDataHelper.getInstance().init();
+        CartDataHelper.getInstance().initDB(this);
     }
 
     public static Context getContext() {

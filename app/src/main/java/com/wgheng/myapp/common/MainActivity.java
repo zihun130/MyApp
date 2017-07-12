@@ -100,6 +100,7 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
         initFragment();
         rgMain.check(R.id.rb_shop);
+        CartDataHelper.getInstance().initData();
     }
 
     private void initFragment() {

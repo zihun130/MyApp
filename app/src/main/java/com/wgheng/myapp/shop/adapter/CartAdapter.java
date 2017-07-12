@@ -21,9 +21,7 @@ import com.wgheng.myapp.common.CartDataHelper;
 import com.wgheng.myapp.shop.activity.CartActivity;
 import com.wgheng.myapp.shop.bean.CartBean;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,13 +94,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.cbItem.setOnCheckedChangeListener(null);
         holder.cbItem.setChecked(cartBean.isChecked());
 
-        //遍历款式的集合获取信息
-        HashMap<String, String> types = cartBean.getTypes();
-        StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, String> entry : types.entrySet()) {
-            sb.append(entry.getKey() + ":" + entry.getValue() + ";");
-        }
-        holder.tvGoodsType.setText(sb.toString());
+//        //遍历款式的集合获取信息
+//        HashMap<String, String> types = cartBean.getTypes();
+//        StringBuilder sb = new StringBuilder();
+//        for (Map.Entry<String, String> entry : types.entrySet()) {
+//            sb.append(entry.getKey() + ":" + entry.getValue() + ";");
+//        }
+//        holder.tvGoodsType.setText(sb.toString());
 
         setListener(holder, position);
 
@@ -143,7 +141,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(context)
-                        .setTitle("确定要删除商品吗？")
+                        .setMessage("确定要删除商品吗？")
                         .setNegativeButton("取消", null)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
