@@ -13,7 +13,7 @@ public class TableCart {
     public static final String ORIGIN_PRICE = "originPrice";
     public static final String COUNT = "count";
     public static final String IMAGE_PATH = "imagePath";
-    public static final String GOODS_PATH = "goodsPath";
+    public static final String GOODS_ID = "goodsId";
     public static final String TYPES = "types";
 
     public static final String CREATE_TABLE = "create table " + TABLE_NAME + " ( "
@@ -23,6 +23,6 @@ public class TableCart {
             + ORIGIN_PRICE + " text,"
             + COUNT + " integer,"
             + IMAGE_PATH + " text,"
-            + GOODS_PATH + " text,"
+            + GOODS_ID + " text,"
             + TYPES + " text)";
 }

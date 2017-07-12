@@ -252,7 +252,7 @@ public class GoodsActivity extends BaseActivity {
         buyBean.setName(itemsBean.getGoods_name());
         buyBean.setDefaultImage(itemsBean.getGoods_image());
         buyBean.setSkuInfoBeans(skuInfoBeans);
-        buyBean.setGoodsPath(itemsBean.getGoods_url());
+        buyBean.setGoodsId(itemsBean.getGoods_id());
 
         if (!TextUtils.isEmpty(itemsBean.getDiscount_price())) {
             buyBean.setPrice(itemsBean.getDiscount_price());

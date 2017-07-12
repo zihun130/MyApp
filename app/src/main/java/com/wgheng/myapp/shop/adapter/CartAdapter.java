@@ -2,6 +2,7 @@ package com.wgheng.myapp.shop.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.wgheng.addsubview_lib.AddSubView;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.common.CartDataHelper;
 import com.wgheng.myapp.shop.activity.CartActivity;
+import com.wgheng.myapp.shop.activity.GoodsActivity;
 import com.wgheng.myapp.shop.bean.CartBean;
 
 import java.util.List;
@@ -102,6 +104,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 //        }
 //        holder.tvGoodsType.setText(sb.toString());
 
+        //设置款式信息（拼接字符串）
+        holder.tvGoodsType.setText(cartBean.getTypes());
+
         setListener(holder, position);
 
     }
@@ -156,6 +161,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
                             }
                         }).show();
+            }
+        });
+
+        holder.ivGoods.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, GoodsActivity.class);
+                intent.putExtra("goods_id", cartBean.getGoodsId());
+                context.startActivity(intent);
             }
         });
     }

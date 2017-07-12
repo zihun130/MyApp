@@ -14,7 +14,7 @@ public class BuyBean implements Serializable {
     private String name;
     private String price;
     private String originPrice;
-    private String goodsPath;
+    private String goodsId;
 
     public String getOriginPrice() {
         return originPrice;
@@ -24,12 +24,12 @@ public class BuyBean implements Serializable {
         this.originPrice = originPrice;
     }
 
-    public String getGoodsPath() {
-        return goodsPath;
+    public String getGoodsId() {
+        return goodsId;
     }
 
-    public void setGoodsPath(String goodsPath) {
-        this.goodsPath = goodsPath;
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getDefaultImage() {

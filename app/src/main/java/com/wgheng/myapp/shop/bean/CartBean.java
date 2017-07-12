@@ -1,7 +1,6 @@
 package com.wgheng.myapp.shop.bean;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 /**
  * Created by wgheng on 2017/7/11.
@@ -16,9 +15,18 @@ public class CartBean implements Serializable{
     private String originPrice;
     private int count;
     private String imagePath;
-    private String goodsPath;
-    private HashMap<String, String> types;
+    private String goodsId;
+   // private HashMap<String, String> types;
+    private String types;
     private boolean isChecked = true;
+
+    public String getTypes() {
+        return types;
+    }
+
+    public void setTypes(String types) {
+        this.types = types;
+    }
 
     public int getCount() {
         return count;
@@ -44,21 +52,21 @@ public class CartBean implements Serializable{
         this.originPrice = originPrice;
     }
 
-    public String getGoodsPath() {
-        return goodsPath;
+    public String getGoodsId() {
+        return goodsId;
     }
 
-    public void setGoodsPath(String goodsPath) {
-        this.goodsPath = goodsPath;
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
-
-    public HashMap<String, String> getTypes() {
-        return types;
-    }
-
-    public void setTypes(HashMap<String, String> types) {
-        this.types = types;
-    }
+//
+//    public HashMap<String, String> getTypes() {
+//        return types;
+//    }
+//
+//    public void setTypes(HashMap<String, String> types) {
+//        this.types = types;
+//    }
 
     public String getKey() {
         return key;

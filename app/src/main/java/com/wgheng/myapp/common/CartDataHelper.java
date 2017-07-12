@@ -39,7 +39,7 @@ public class CartDataHelper {
 //    public static final String PRICE = "price";
 //    public static final String ORIGIN_PRICE = "originPrice";
 //    public static final String IMAGE_PATH = "imagePath";
-//    public static final String GOODS_PATH = "goodsPath";
+//    public static final String GOODS_ID = "goodsPath";
 //    public static final String TYPES = "types";
 //    public static final String COUNT = "count";
 
@@ -59,7 +59,7 @@ public class CartDataHelper {
                 String price = cursor.getString(cursor.getColumnIndex(TableCart.PRICE));
                 String originPrice = cursor.getString(cursor.getColumnIndex(TableCart.ORIGIN_PRICE));
                 String imagePath = cursor.getString(cursor.getColumnIndex(TableCart.IMAGE_PATH));
-                String goodsPath = cursor.getString(cursor.getColumnIndex(TableCart.GOODS_PATH));
+                String goodsId = cursor.getString(cursor.getColumnIndex(TableCart.GOODS_ID));
                 String types = cursor.getString(cursor.getColumnIndex(TableCart.TYPES));
 
                 CartBean cartBean = new CartBean();
@@ -69,8 +69,8 @@ public class CartDataHelper {
                 cartBean.setPrice(price);
                 cartBean.setOriginPrice(originPrice);
                 cartBean.setImagePath(imagePath);
-                cartBean.setGoodsPath(goodsPath);
-                // cartBean.setTypes();
+                cartBean.setGoodsId(goodsId);
+                cartBean.setTypes(types);
                 cartBeans.add(cartBean);
             }
         }
@@ -93,7 +93,7 @@ public class CartDataHelper {
                 //更新内存
                 cartBeans.get(i).setCount(newCount);
                 //更新数据库
-                updateDB(cartBeans.get(i).getKey(),newCount);
+                updateDB(cartBeans.get(i).getKey(), newCount);
                 hasSame = true;
             }
         }
@@ -116,7 +116,7 @@ public class CartDataHelper {
         //更新内存
         cartBeans.get(position).setCount(count);
         //更新数据库
-        updateDB(cartBeans.get(position).getKey(),count);
+        updateDB(cartBeans.get(position).getKey(), count);
     }
 
     //保存到数据库一份
@@ -129,8 +129,8 @@ public class CartDataHelper {
         values.put(TableCart.PRICE, cartBean.getPrice());
         values.put(TableCart.ORIGIN_PRICE, cartBean.getOriginPrice());
         values.put(TableCart.IMAGE_PATH, cartBean.getImagePath());
-        values.put(TableCart.GOODS_PATH, cartBean.getGoodsPath());
-        //  values.put(TableCart.TYPES,);
+        values.put(TableCart.GOODS_ID, cartBean.getGoodsId());
+        values.put(TableCart.TYPES, cartBean.getTypes());
         db.insert(TableCart.TABLE_NAME, null, values);
     }
 
@@ -141,7 +141,7 @@ public class CartDataHelper {
     }
 
     //更新数据库
-    private void updateDB(String key,int newCount) {
+    private void updateDB(String key, int newCount) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put(TableCart.COUNT, newCount);

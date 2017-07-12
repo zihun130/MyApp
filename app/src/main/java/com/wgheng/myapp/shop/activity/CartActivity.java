@@ -67,7 +67,15 @@ public class CartActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         computeTotalPrice();
 
-        cbCheckAll.setChecked(true);
+        checkList();
+    }
+
+    public void checkList() {
+        if (CartDataHelper.getInstance().getCartBeans().size() != 0) {
+            cbCheckAll.setChecked(true);
+        } else {
+            cbCheckAll.setChecked(false);
+        }
     }
 
     private void setCheckedStatus(boolean allStatus) {
@@ -146,6 +154,13 @@ public class CartActivity extends BaseActivity {
 
         boolean allChecked = true;
         List<CartBean> cartBeans = CartDataHelper.getInstance().getCartBeans();
+
+        if(cartBeans.size()==0) {
+            cbCheckAll.setChecked(false);
+            isCheckAll = false;
+            return;
+        }
+
         for (int i = 0; i < cartBeans.size(); i++) {
             if (!cartBeans.get(i).isChecked()) {
                 allChecked = false;

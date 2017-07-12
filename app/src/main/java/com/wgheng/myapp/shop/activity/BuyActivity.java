@@ -22,7 +22,6 @@ import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -219,21 +218,27 @@ public class BuyActivity extends BaseActivity {
         cartBean.setPrice(buyBean.getPrice());
         cartBean.setCount(count);
         cartBean.setImagePath(imagePath);
-        cartBean.setGoodsPath(buyBean.getGoodsPath());
+        cartBean.setGoodsId(buyBean.getGoodsId());
         cartBean.setOriginPrice(buyBean.getOriginPrice());
 
         //为数据库主键预留字段
-        String key = buyBean.getName();
+        //String key = buyBean.getName();
+        StringBuilder key = new StringBuilder(buyBean.getName());
+
         //存放不同类型信息的集合
-        HashMap<String, String> types = new HashMap<>();
+        //HashMap<String, String> types = new HashMap<>();
+        StringBuilder types = new StringBuilder();
         for (int i = 0; i < flowLayouts.size(); i++) {
             DataHolder holder = (DataHolder) flowLayouts.get(i).getTag();
-            key = key + holder.typeId + holder.attrId;
-            types.put(holder.typeName, holder.attrName);
+            key.append(holder.typeId + holder.attrId);
+            // types.put(holder.typeName, holder.attrName);
+            //改为String类型存储
+            types.append(holder.typeName + ":" + holder.attrName + ";");
         }
 
-        cartBean.setKey(key);
-        cartBean.setTypes(types);
+        cartBean.setKey(key.toString());
+        //cartBean.setTypes(types);
+        cartBean.setTypes(types.toString());
 
         //添加到购物车数据集合中
         CartDataHelper.getInstance().addData(cartBean);
