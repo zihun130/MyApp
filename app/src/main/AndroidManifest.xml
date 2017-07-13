@@ -34,7 +34,8 @@
             android:name=".shop.activity.BuyActivity"
             android:theme="@style/TransparentTheme" />
         <activity android:name=".shop.activity.CartActivity" />
-        <activity android:name=".share.activity.JiecaoPlayerActivity"></activity>
+        <activity android:name=".share.activity.JiecaoPlayerActivity" />
+        <activity android:name=".share.activity.CommendsActivity"></activity>
     </application>
 
 </manifest>

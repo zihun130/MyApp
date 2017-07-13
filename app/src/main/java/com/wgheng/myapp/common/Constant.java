@@ -103,7 +103,12 @@ public class Constant {
     public static final String AUTHOR_DETIAL_URL_PART1 = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=";
     public static final String AUTHOR_DETIAL_URL_PART2 = "&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
 
-    //百思不得姐：推荐
+    //百思不得姐
+    // 推荐
     public static final String BS_RECOMMEND = "http://c.api.budejie.com/topic/list/jingxuan/1/budejie-android-6.7.2/0-20.json";
+    //段子
     public static final String BS_JOKE = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-20.json";
+    //评论
+    public static final String BS_COMMENDS_PART1 = "http://c.api.budejie.com/topic/comment_list/";
+    public static final String BS_COMMENDS_PART2 = "/0/budejie-android-6.6.3/0-20.json";
 }

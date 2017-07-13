@@ -1,5 +1,6 @@
 package com.wgheng.myapp.share.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -57,7 +58,7 @@ public class RdBean {
         }
     }
 
-    public static class ListBean {
+    public static class ListBean implements Serializable{
         /**
          * status : 4
          * comment : 7
@@ -252,7 +253,7 @@ public class RdBean {
             this.top_comments = top_comments;
         }
 
-        public static class UBean {
+        public static class UBean implements Serializable{
             /**
              * header : ["http://wimg.spriteapp.cn/profile/large/2017/04/22/58faaae21c065_mini.jpg","http://dimg.spriteapp.cn/profile/large/2017/04/22/58faaae21c065_mini.jpg"]
              * uid : 20584577
@@ -348,7 +349,7 @@ public class RdBean {
             }
         }
 
-        public static class VideoBean {
+        public static class VideoBean implements Serializable{
             /**
              * playfcount : 84
              * height : 640
@@ -444,7 +445,7 @@ public class RdBean {
             }
         }
 
-        public static class HtmlBean {
+        public static class HtmlBean implements Serializable{
             /**
              * body :
              * title : 选喜欢的颜色，看你的性格是哪种天气？ (1)
@@ -529,7 +530,7 @@ public class RdBean {
                 this.thumbnail = thumbnail;
             }
 
-            public static class ViewBean {
+            public static class ViewBean implements Serializable{
                 /**
                  * playcount : 0
                  * playfcount : 1
@@ -556,7 +557,7 @@ public class RdBean {
             }
         }
 
-        public static class ImageBean {
+        public static class ImageBean implements Serializable{
             /**
              * medium : []
              * big : ["http://wimg.spriteapp.cn/ugc/2017/07/11/59649d09d82e6_1.jpg","http://dimg.spriteapp.cn/ugc/2017/07/11/59649d09d82e6_1.jpg"]
@@ -632,7 +633,7 @@ public class RdBean {
             }
         }
 
-        public static class GifBean {
+        public static class GifBean implements Serializable{
             /**
              * images : ["http://wimg.spriteapp.cn/ugc/2017/07/11/596458b412a1e.gif","http://dimg.spriteapp.cn/ugc/2017/07/11/596458b412a1e.gif"]
              * width : 380
@@ -688,7 +689,7 @@ public class RdBean {
             }
         }
 
-        public static class TopCommentBean {
+        public static class TopCommentBean implements Serializable{
             /**
              * voicetime : 0
              * status : 0
@@ -813,7 +814,7 @@ public class RdBean {
                 this.id = id;
             }
 
-            public static class UBeanX {
+            public static class UBeanX implements Serializable{
                 /**
                  * header : ["http://wx.qlogo.cn/mmopen/NsXicLUicickpel973x87uu1E7YP1ySXzPMibrfKPyXicoSajPk6b5TugLC7WGCgfrfysjKMf7pQWENNnMLOZU7lAZtxP9MLpYtLg/0","http://wx.qlogo.cn/mmopen/NsXicLUicickpel973x87uu1E7YP1ySXzPMibrfKPyXicoSajPk6b5TugLC7WGCgfrfysjKMf7pQWENNnMLOZU7lAZtxP9MLpYtLg/0"]
                  * uid : 19884408
@@ -910,7 +911,7 @@ public class RdBean {
             }
         }
 
-        public static class TagsBean {
+        public static class TagsBean implements Serializable{
             /**
              * info : 爆笑视频让你笑的飞起
              * post_number : 864
@@ -1006,7 +1007,7 @@ public class RdBean {
             }
         }
 
-        public static class TopCommentsBean {
+        public static class TopCommentsBean implements Serializable{
             /**
              * voicetime : 0
              * status : 0
@@ -1131,7 +1132,7 @@ public class RdBean {
                 this.id = id;
             }
 
-            public static class UBeanXX {
+            public static class UBeanXX implements Serializable{
                 /**
                  * header : ["http://wimg.spriteapp.cn/profile/large/2017/06/19/59479b7718f36_mini.jpg","http://dimg.spriteapp.cn/profile/large/2017/06/19/59479b7718f36_mini.jpg"]
                  * uid : 19968743

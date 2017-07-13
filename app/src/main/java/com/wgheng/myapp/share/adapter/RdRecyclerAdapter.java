@@ -1,6 +1,7 @@
 package com.wgheng.myapp.share.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wgheng.myapp.R;
+import com.wgheng.myapp.share.activity.CommendsActivity;
 import com.wgheng.myapp.share.bean.RdBean;
+import com.wgheng.myapp.shop.activity.WebActivity;
 import com.wgheng.myapp.utils.CropTopTransformation;
 import com.wgheng.myapp.utils.DensityUtil;
 
@@ -114,7 +117,7 @@ public class RdRecyclerAdapter extends RecyclerView.Adapter<RdRecyclerAdapter.Ba
     @Override
     public void onBindViewHolder(BaseHolder holder, int position) {
 
-        RdBean.ListBean listBean = listBeans.get(position);
+        final RdBean.ListBean listBean = listBeans.get(position);
 
         Glide.with(context).load(listBean.getU().getHeader().get(0)).into(holder.ivUserIcon);
         holder.tvUsername.setText(listBean.getU().getName());
@@ -131,6 +134,9 @@ public class RdRecyclerAdapter extends RecyclerView.Adapter<RdRecyclerAdapter.Ba
         holder.llTopCommends.setVisibility(topComments == null || topComments.size() == 0 ? View.GONE : View.VISIBLE);
 
         if (topComments != null) {
+
+            holder.llTopCommends.removeAllViews();
+
             for (int i = 0; i < topComments.size(); i++) {
                 TextView textView = new TextView(context);
                 textView.setTextSize(15);
@@ -165,6 +171,13 @@ public class RdRecyclerAdapter extends RecyclerView.Adapter<RdRecyclerAdapter.Ba
                                         DensityUtil.dip2px(context, listBean.getGif().getHeight())))
                         .into(gifHolder.ivGif);
 
+                gifHolder.ivGif.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startCommendActivity(listBean);
+                    }
+                });
+
                 break;
             case TYPE_IMAGE:
                 ImageHolder imageHolder = (ImageHolder) holder;
@@ -172,18 +185,64 @@ public class RdRecyclerAdapter extends RecyclerView.Adapter<RdRecyclerAdapter.Ba
                 Glide.with(context)
                         .load(listBean.getImage().getBig().get(0))
                         .apply(new RequestOptions()
-                                .bitmapTransform(new CropTopTransformation(context,itemWidth,itemWidth, CropTopTransformation.CropType.TOP)))
+                                .bitmapTransform(new CropTopTransformation(context, itemWidth, itemWidth, CropTopTransformation.CropType.TOP)))
                         .into(imageHolder.ivImage);
+
+                imageHolder.ivImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startCommendActivity(listBean);
+                    }
+                });
+
                 break;
             case TYPE_HTML:
                 HtmlHolder htmlHolder = (HtmlHolder) holder;
                 htmlHolder.tvTitle.setText(listBean.getHtml().getTitle());
                 Glide.with(context).load(listBean.getHtml().getThumbnail()).into(htmlHolder.ivHtml);
+
+                htmlHolder.ivHtml.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, WebActivity.class);
+                        intent.putExtra("url", listBean.getHtml().getSource_url());
+                        context.startActivity(intent);
+                    }
+                });
+
                 break;
+
             case TYPE_TEXT:
                 holder.tvTitle.setText(listBean.getText());
                 break;
         }
+
+        setListener(holder, listBean);
+    }
+
+    private void setListener(BaseHolder holder, final RdBean.ListBean listBean) {
+
+        //设置评论点击监听
+        holder.llItemCommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startCommendActivity(listBean);
+            }
+        });
+
+        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startCommendActivity(listBean);
+            }
+        });
+
+    }
+
+    private void startCommendActivity(RdBean.ListBean listBean) {
+        Intent intent = new Intent(context, CommendsActivity.class);
+        intent.putExtra("listBean", listBean);
+        context.startActivity(intent);
     }
 
     @Override
@@ -223,6 +282,10 @@ public class RdRecyclerAdapter extends RecyclerView.Adapter<RdRecyclerAdapter.Ba
         TextView tvTitle;
         @BindView(R.id.ll_top_commends)
         LinearLayout llTopCommends;
+        @BindView(R.id.ll_item_share)
+        LinearLayout llItemShare;
+        @BindView(R.id.ll_item_commend)
+        LinearLayout llItemCommend;
 
         BaseHolder(View view) {
             super(view);

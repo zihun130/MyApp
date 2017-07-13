@@ -96,6 +96,7 @@ public class RdFragment extends BaseFragment {
                 refreshlayout.finishRefresh(2000);
             }
         });
+
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {

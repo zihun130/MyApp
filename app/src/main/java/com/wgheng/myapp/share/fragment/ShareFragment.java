@@ -4,7 +4,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wgheng.myapp.R;
@@ -23,8 +22,6 @@ import butterknife.BindView;
 
 public class ShareFragment extends BaseFragment {
 
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tab_layout)
