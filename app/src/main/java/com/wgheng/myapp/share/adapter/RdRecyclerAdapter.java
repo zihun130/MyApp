@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.share.bean.RdBean;
+import com.wgheng.myapp.utils.CropTopTransformation;
 import com.wgheng.myapp.utils.DensityUtil;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class RdRecyclerAdapter extends RecyclerView.Adapter<RdRecyclerAdapter.Ba
     public static final int TYPE_TEXT = 5;
     private final Context context;
     private final List<RdBean.ListBean> listBeans;
+    private int itemWidth;
 
     public RdRecyclerAdapter(Context context, List<RdBean.ListBean> listBeans) {
         this.context = context;
@@ -76,6 +78,10 @@ public class RdRecyclerAdapter extends RecyclerView.Adapter<RdRecyclerAdapter.Ba
 
     @Override
     public BaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        //获取item宽度
+        itemWidth = parent.getWidth();
+
         LayoutInflater inflater = LayoutInflater.from(context);
         View view;
         BaseHolder holder = null;
@@ -124,16 +130,18 @@ public class RdRecyclerAdapter extends RecyclerView.Adapter<RdRecyclerAdapter.Ba
         List<RdBean.ListBean.TopCommentsBean> topComments = listBean.getTop_comments();
         holder.llTopCommends.setVisibility(topComments == null || topComments.size() == 0 ? View.GONE : View.VISIBLE);
 
-        for (int i = 0; i < topComments.size(); i++) {
-            TextView textView = new TextView(context);
-            textView.setTextSize(15);
+        if (topComments != null) {
+            for (int i = 0; i < topComments.size(); i++) {
+                TextView textView = new TextView(context);
+                textView.setTextSize(15);
 
-            //设置同一个textview不同颜色字体
-            String comment = "<font color='#5271af'>" + topComments.get(i).getU().getName()
-                    + "<font color='#616161'> : " + topComments.get(i).getContent() + "</font>";
+                //设置同一个textview不同颜色字体
+                String comment = "<font color='#5271af'>" + topComments.get(i).getU().getName()
+                        + "<font color='#616161'> : " + topComments.get(i).getContent() + "</font>";
 
-            textView.setText(Html.fromHtml(comment));
-            holder.llTopCommends.addView(textView);
+                textView.setText(Html.fromHtml(comment));
+                holder.llTopCommends.addView(textView);
+            }
         }
         int viewType = getItemViewType(position);
 
@@ -161,7 +169,11 @@ public class RdRecyclerAdapter extends RecyclerView.Adapter<RdRecyclerAdapter.Ba
             case TYPE_IMAGE:
                 ImageHolder imageHolder = (ImageHolder) holder;
                 imageHolder.tvTitle.setText(listBean.getText());
-                Glide.with(context).load(listBean.getImage().getBig().get(0)).into(imageHolder.ivImage);
+                Glide.with(context)
+                        .load(listBean.getImage().getBig().get(0))
+                        .apply(new RequestOptions()
+                                .bitmapTransform(new CropTopTransformation(context,itemWidth,itemWidth, CropTopTransformation.CropType.TOP)))
+                        .into(imageHolder.ivImage);
                 break;
             case TYPE_HTML:
                 HtmlHolder htmlHolder = (HtmlHolder) holder;
@@ -259,5 +271,4 @@ public class RdRecyclerAdapter extends RecyclerView.Adapter<RdRecyclerAdapter.Ba
             super(view);
         }
     }
-
 }

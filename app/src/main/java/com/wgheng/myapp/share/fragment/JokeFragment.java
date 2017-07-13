@@ -68,7 +68,7 @@ public class JokeFragment extends BaseFragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                getData(Constant.BS_RECOMMEND);
+                getData(Constant.BS_JOKE);
                 refreshlayout.finishRefresh(2000);
             }
         });
