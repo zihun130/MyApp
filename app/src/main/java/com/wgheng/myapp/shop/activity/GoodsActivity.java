@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseActivity;
 import com.wgheng.myapp.common.Constant;
@@ -26,10 +27,13 @@ import com.wgheng.myapp.view.PullUpToLoadMore;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
+import java.io.File;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class GoodsActivity extends BaseActivity {
 
@@ -103,6 +107,7 @@ public class GoodsActivity extends BaseActivity {
     @BindView(R.id.tv_brand_name2)
     TextView tvBrandName2;
     private GoodsBean.DataBean.ItemsBean itemsBean;
+    String imagePath;
 
     @Override
     public int getLayoutId() {
@@ -130,6 +135,10 @@ public class GoodsActivity extends BaseActivity {
 
     @Override
     protected String getUrl() {
+        return combineUrl();
+    }
+
+    private String combineUrl() {
         String goods_id = getIntent().getStringExtra("goods_id");
         return Constant.GOODS_DETIAL_URL_PART1 + goods_id + Constant.GOODS_DETIAL_URL_PART2;
     }
@@ -150,6 +159,25 @@ public class GoodsActivity extends BaseActivity {
 
         setDetails(itemsBean);
 
+        getGlideCache();
+
+    }
+
+    private void getGlideCache() {
+        final FutureTarget<File> future = Glide.with(this).load(itemsBean.getGoods_image()).downloadOnly(100, 100);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    imagePath = future.get().getAbsolutePath();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void setDetails(GoodsBean.DataBean.ItemsBean itemsBean) {
@@ -208,10 +236,13 @@ public class GoodsActivity extends BaseActivity {
         tvGoodDesc.setText(itemsBean.getGoods_desc());
     }
 
-    @OnClick({R.id.ll_brand_detail, R.id.iv_like, R.id.tv_choose_size, R.id.tv_after_sale_tips, R.id.iv_back, R.id.iv_cart, R.id.iv_call_center, R.id.tv_add_cart, R.id.tv_just_buy})
+    @OnClick({R.id.iv_share, R.id.ll_brand_detail, R.id.iv_like, R.id.tv_choose_size, R.id.tv_after_sale_tips, R.id.iv_back, R.id.iv_cart, R.id.iv_call_center, R.id.tv_add_cart, R.id.tv_just_buy})
     public void onClick(View view) {
 
         switch (view.getId()) {
+            case R.id.iv_share:
+                showShare();
+                break;
             case R.id.ll_brand_detail:
                 Intent intent = new Intent(this, BrandDetailActivity.class);
                 intent.putExtra("brand_id", itemsBean.getBrand_info().getBrand_id());
@@ -227,17 +258,15 @@ public class GoodsActivity extends BaseActivity {
             case R.id.iv_back:
                 finish();
             case R.id.iv_cart:
-                startActivity(new Intent(this,CartActivity.class));
+                startActivity(new Intent(this, CartActivity.class));
                 break;
             case R.id.iv_call_center:
                 break;
             case R.id.tv_add_cart:
                 startBuyActivity(ADD);
-
                 break;
             case R.id.tv_just_buy:
                 startBuyActivity(BUY);
-
                 break;
         }
     }
@@ -265,7 +294,7 @@ public class GoodsActivity extends BaseActivity {
         Intent intent = new Intent(this, BuyActivity.class);
         intent.putExtra("buy_bean", buyBean);
         startActivity(intent);
-        overridePendingTransition(R.anim.activity_in_bottom,R.anim.activity_in_alpha_1_1);
+        overridePendingTransition(R.anim.activity_in_bottom, R.anim.activity_in_alpha_1_1);
 
     }
 
@@ -275,5 +304,34 @@ public class GoodsActivity extends BaseActivity {
         public void displayImage(Context context, Object path, ImageView imageView) {
             Glide.with(context).load(path).into(imageView);
         }
+    }
+
+    private void showShare() {
+
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+        // 分享时Notification的图标和文字  2.5.9以后的版本不     调用此方法
+        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+        oks.setTitle(this.getString(R.string.share));
+        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl(itemsBean.getGoods_url());
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText(itemsBean.getGoods_name());
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        oks.setImagePath(imagePath);//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl(itemsBean.getGoods_url());
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("评论文本");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(this.getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl(itemsBean.getGoods_url());
+        // 启动分享GUI
+        oks.show(this);
+
     }
 }

@@ -1,14 +1,15 @@
 package com.wgheng.myapp.common;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+
+import com.mob.MobApplication;
 
 /**
  * Created by wgheng on 2017/7/7.
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends MobApplication {
 
     private static Context context;
     @Override
