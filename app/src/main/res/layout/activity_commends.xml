@@ -49,42 +49,41 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
 
+            <TextView
+                android:id="@+id/tv_hot_commends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+                android:padding="10dp"
+                android:text="热门评论"
+                android:textColor="#949494"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
             <LinearLayout
                 android:id="@+id/ll_hot_commend_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="#ffffff"
-                    android:padding="10dp"
-                    android:text="热门评论"
-                    android:textColor="#949494"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_new_commends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+                android:padding="10dp"
+                android:text="最新评论"
+                android:textColor="#949494"
+                android:textSize="15sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/ll_new_commend_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="#ffffff"
-                    android:padding="10dp"
-                    android:text="最新评论"
-                    android:textColor="#949494"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
-
+                android:orientation="vertical" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

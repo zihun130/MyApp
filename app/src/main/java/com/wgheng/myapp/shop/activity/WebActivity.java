@@ -2,10 +2,12 @@ package com.wgheng.myapp.shop.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -47,15 +49,26 @@ public class WebActivity extends AppCompatActivity {
     private void initWebView(String url) {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
+
+        webView.setWebViewClient(new WebViewClient());
+
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 progressBar.setProgress(newProgress);
-                if(progressBar.getProgress()>=100) {
+                if (progressBar.getProgress() >= 100) {
                     progressBar.setVisibility(View.GONE);
                 }
 
+            }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                if (TextUtils.isEmpty(tvTitle.getText().toString())) {
+                    tvTitle.setText(title);
+                }
             }
         });
         webView.loadUrl(url);

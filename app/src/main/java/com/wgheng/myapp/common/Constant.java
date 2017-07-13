@@ -105,7 +105,8 @@ public class Constant {
 
     //百思不得姐
     // 推荐
-    public static final String BS_RECOMMEND = "http://c.api.budejie.com/topic/list/jingxuan/1/budejie-android-6.7.2/0-20.json";
+    //public static final String BS_RECOMMEND = "http://c.api.budejie.com/topic/list/jingxuan/1/budejie-android-6.7.2/0-20.json";
+    public static final String BS_RECOMMEND = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-20.json";
     //段子
     public static final String BS_JOKE = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-20.json";
     //评论

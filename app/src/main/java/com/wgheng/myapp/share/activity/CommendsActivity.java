@@ -41,6 +41,8 @@ public class CommendsActivity extends BaseActivity {
     private BaseHolder holder;
     private int itemViewType;
     private CommendsBean commendsBean;
+    private TextView tvNewCommends;
+    private TextView tvHotCommends;
 
     @Override
     public int getLayoutId() {
@@ -55,6 +57,8 @@ public class CommendsActivity extends BaseActivity {
         llTopView = (LinearLayout) findViewById(R.id.ll_top_view);
         llHotView = (LinearLayout) findViewById(R.id.ll_hot_commend_container);
         llNewView = (LinearLayout) findViewById(R.id.ll_new_commend_container);
+        tvNewCommends = (TextView) findViewById(R.id.tv_new_commends);
+        tvHotCommends = (TextView) findViewById(R.id.tv_hot_commends);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,11 +231,13 @@ public class CommendsActivity extends BaseActivity {
         List<CommendsBean.HotBean.ListBean> hotBeans = commendsBean.getHot().getList();
 
         if (hotBeans == null || hotBeans.size() == 0) {
-            llHotView.setVisibility(View.GONE);
+            tvHotCommends.setVisibility(View.GONE);
             return;
         } else {
-            llHotView.setVisibility(View.VISIBLE);
+            tvHotCommends.setVisibility(View.VISIBLE);
         }
+
+        llHotView.removeAllViews();
 
         for (int i = 0; i < hotBeans.size(); i++) {
             View itemCommend = View.inflate(this, R.layout.item_commend, null);
@@ -287,11 +293,13 @@ public class CommendsActivity extends BaseActivity {
         List<CommendsBean.NormalBean.ListBeanX> normalBeans = commendsBean.getNormal().getList();
 
         if (normalBeans == null || normalBeans.size() == 0) {
-            llNewView.setVisibility(View.GONE);
+            tvNewCommends.setVisibility(View.GONE);
             return;
         } else {
-            llNewView.setVisibility(View.VISIBLE);
+            tvNewCommends.setVisibility(View.VISIBLE);
         }
+
+        llNewView.removeAllViews();
 
         for (int i = 0; i < normalBeans.size(); i++) {
             View itemCommend = View.inflate(this, R.layout.item_commend, null);
