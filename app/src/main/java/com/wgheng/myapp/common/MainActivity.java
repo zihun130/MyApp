@@ -13,7 +13,7 @@ import com.wgheng.myapp.base.BaseActivity;
 import com.wgheng.myapp.dazen.fragment.DaRenFragment;
 import com.wgheng.myapp.mgz.fragment.MGZFragment;
 import com.wgheng.myapp.self.SelfFragment;
-import com.wgheng.myapp.share.ShareFragment;
+import com.wgheng.myapp.share.fragment.ShareFragment;
 import com.wgheng.myapp.shop.fragment.ShopFragment;
 
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 public class MainActivity extends BaseActivity {
 
@@ -141,5 +142,20 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onKeyUp(keyCode, event);
+    }
+
+    //设置节操播放器释放资源
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        JCVideoPlayer.releaseAllVideos();
     }
 }
