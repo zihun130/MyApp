@@ -12,6 +12,7 @@ import com.wgheng.myapp.base.BaseActivity;
 import com.wgheng.myapp.common.CartDataHelper;
 import com.wgheng.myapp.shop.adapter.CartAdapter;
 import com.wgheng.myapp.shop.bean.CartBean;
+import com.wgheng.myapp.utils.PayKeys;
 
 import java.util.List;
 
@@ -49,6 +50,16 @@ public class CartActivity extends BaseActivity {
     private CartAdapter adapter;
     public static boolean isEdit = false;
     private boolean isCheckAll = true;
+    private double price;
+
+    //商户PID
+    public static final String PARTNER = PayKeys.DEFAULT_PARTNER;
+    //商户收款账号
+    public static final String SELLER = PayKeys.DEFAULT_SELLER;
+    //商户私钥，pkcs8格式
+    public static final String RSA_PRIVATE = PayKeys.PRIVATE;
+    //支付宝公钥
+    public static final String RSA_PUBLIC = PayKeys.PUBLIC;
 
     @Override
     public int getLayoutId() {
@@ -124,7 +135,7 @@ public class CartActivity extends BaseActivity {
 
     public void computeTotalPrice() {
         List<CartBean> cartBeans = CartDataHelper.getInstance().getCartBeans();
-        double price = 0;
+        price = 0;
         double originPrice = 0;
         for (int i = 0; i < cartBeans.size(); i++) {
             CartBean cartBean = cartBeans.get(i);

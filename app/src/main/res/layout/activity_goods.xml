@@ -445,6 +445,17 @@
         android:layout_margin="20dp"
         android:src="@drawable/actionbar_navigation_cart" />
 
+    <TextView
+        android:id="@+id/tv_cart_count"
+        tools:text="6"
+        android:gravity="center"
+        android:textColor="#bacee3"
+        android:background="@drawable/shape_bg_cart_count"
+        android:layout_width="20dp"
+        android:layout_margin="12dp"
+        android:layout_gravity="end"
+        android:layout_height="20dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"

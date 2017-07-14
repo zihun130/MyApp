@@ -20,8 +20,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.FutureTarget;
 import com.wgheng.myapp.R;
 import com.wgheng.myapp.base.BaseActivity;
+import com.wgheng.myapp.common.CartDataHelper;
 import com.wgheng.myapp.common.Constant;
 import com.wgheng.myapp.shop.bean.BuyBean;
+import com.wgheng.myapp.shop.bean.CartBean;
 import com.wgheng.myapp.shop.bean.GoodsBean;
 import com.wgheng.myapp.view.PullUpToLoadMore;
 import com.youth.banner.Banner;
@@ -106,6 +108,8 @@ public class GoodsActivity extends BaseActivity {
     LinearLayout llGoodDetail;
     @BindView(R.id.tv_brand_name2)
     TextView tvBrandName2;
+    @BindView(R.id.tv_cart_count)
+    TextView tvCartCount;
     private GoodsBean.DataBean.ItemsBean itemsBean;
     String imagePath;
 
@@ -147,6 +151,22 @@ public class GoodsActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         rgBrand.check(R.id.rb_good_info);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setCartCount();
+    }
+
+    private void setCartCount() {
+        List<CartBean> cartBeans = CartDataHelper.getInstance().getCartBeans();
+        int count = 0;
+        for (int i = 0; i < cartBeans.size(); i++) {
+            count += cartBeans.get(i).getCount();
+        }
+        tvCartCount.setText(count + "");
     }
 
     @Override
