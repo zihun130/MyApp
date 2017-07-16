@@ -1,5 +1,6 @@
 package com.wgheng.myapp.shop.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,8 +13,8 @@ import com.wgheng.myapp.base.BaseActivity;
 import com.wgheng.myapp.common.CartDataHelper;
 import com.wgheng.myapp.shop.adapter.CartAdapter;
 import com.wgheng.myapp.shop.bean.CartBean;
-import com.wgheng.myapp.utils.PayKeys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,15 +52,7 @@ public class CartActivity extends BaseActivity {
     public static boolean isEdit = false;
     private boolean isCheckAll = true;
     private double price;
-
-    //商户PID
-    public static final String PARTNER = PayKeys.DEFAULT_PARTNER;
-    //商户收款账号
-    public static final String SELLER = PayKeys.DEFAULT_SELLER;
-    //商户私钥，pkcs8格式
-    public static final String RSA_PRIVATE = PayKeys.PRIVATE;
-    //支付宝公钥
-    public static final String RSA_PUBLIC = PayKeys.PUBLIC;
+    private ArrayList<CartBean> checkedGoods = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -129,7 +122,16 @@ public class CartActivity extends BaseActivity {
                 computeTotalPrice();
                 break;
             case R.id.tv_settle:
+                startPayActivity();
                 break;
+        }
+    }
+
+    private void startPayActivity() {
+        if (checkedGoods.size() > 0) {
+            Intent intent = new Intent(this, PayActivity.class);
+            intent.putExtra("checked_goods", checkedGoods);
+            startActivity(intent);
         }
     }
 
@@ -137,9 +139,16 @@ public class CartActivity extends BaseActivity {
         List<CartBean> cartBeans = CartDataHelper.getInstance().getCartBeans();
         price = 0;
         double originPrice = 0;
+        checkedGoods.clear();
+
         for (int i = 0; i < cartBeans.size(); i++) {
             CartBean cartBean = cartBeans.get(i);
             if (cartBean.isChecked()) {
+
+                //将勾选商品放到新的集合中
+                checkedGoods.add(cartBean);
+
+                //计算总价
                 price += Double.parseDouble(cartBean.getPrice()) * cartBean.getCount();
                 originPrice += Double.parseDouble(cartBean.getOriginPrice()) * cartBean.getCount();
             }
@@ -166,7 +175,7 @@ public class CartActivity extends BaseActivity {
         boolean allChecked = true;
         List<CartBean> cartBeans = CartDataHelper.getInstance().getCartBeans();
 
-        if(cartBeans.size()==0) {
+        if (cartBeans.size() == 0) {
             cbCheckAll.setChecked(false);
             isCheckAll = false;
             return;
