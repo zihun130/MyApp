@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.mob.MobApplication;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by wgheng on 2017/7/7.
  */
@@ -18,6 +20,8 @@ public class MyApplication extends MobApplication {
         Log.d("dbhelper", "onCreate: ");
         context = getApplicationContext();
         CartDataHelper.getInstance().initDB(this);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     public static Context getContext() {
